@@ -8,7 +8,7 @@ export default function Wheel({
   options,
   targetValue,
   spinToken,
-  spinMs = 1400,
+  spinMs = 1500,
   label,
   onLanded,
 }) {

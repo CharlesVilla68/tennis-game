@@ -5,7 +5,7 @@ import { getPlayersForYear } from "./utils/getPlayersForYear";
 const MIN_YEAR = 1968;
 const MAX_YEAR = 2026;
 const YEAR_SPIN_MS = 1000;
-const PLAYER_SPIN_MS = 1500; // finishes ~0.5s after the year reel
+const PLAYER_SPIN_MS = 2000; // finishes ~0.5s after the year reel
 
 const DECADE_OPTIONS = [1968, 1970, 1980, 1990, 2000, 2010, 2020, 2026];
 
