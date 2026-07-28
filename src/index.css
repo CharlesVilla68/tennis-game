@@ -127,24 +127,61 @@ h1 {
   color: #888;
 }
 
-.wheel-display {
+.wheel-window {
+  position: relative;
   width: 100%;
-  min-height: 4rem;
-  padding: 1rem 0.75rem;
+  height: 64px;
+  overflow: hidden;
   background-color: #2a2a2a;
   border: 2px solid #444;
   border-radius: 8px;
-  font-size: 1.15rem;
-  font-weight: 700;
-  text-align: center;
+  transition: border-color 0.2s;
+}
+
+.wheel-window::before,
+.wheel-window::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.wheel-window::before {
+  top: 0;
+  background: linear-gradient(#2a2a2a, transparent);
+}
+
+.wheel-window::after {
+  bottom: 0;
+  background: linear-gradient(transparent, #2a2a2a);
+}
+
+.wheel-strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.wheel-item {
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.2s, transform 0.15s;
+  font-size: 1.15rem;
+  font-weight: 700;
 }
 
-.wheel-idle {
-  opacity: 0.6;
+.wheel-placeholder {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  opacity: 0.5;
 }
 
 .wheel-spinning {
@@ -153,12 +190,10 @@ h1 {
 
 .wheel-settling {
   border-color: #fbbf24;
-  transform: scale(1.04);
 }
 
 .wheel-done {
   border-color: #22c55e;
-  transform: scale(1);
 }
 
 .my-player {
