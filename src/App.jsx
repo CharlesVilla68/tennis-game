@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
 import Wheel from "./components/Wheel";
+import SeasonResults from "./components/SeasonResults";
 import { getPlayersForYear } from "./utils/getPlayersForYear";
+import { simulateSeason } from "./utils/simulateSeason";
 
 const MIN_YEAR = 1968;
 const MAX_YEAR = 2026;
 const YEAR_SPIN_MS = 1200;
-const PLAYER_SPIN_MS = 1700; // finishes ~0.5s after the year reel
+const PLAYER_SPIN_MS = 1700;
 
 const DECADE_OPTIONS = [1968, 1970, 1980, 1990, 2000, 2010, 2020, 2026];
 
@@ -51,6 +53,7 @@ function App() {
   const [lockedGender, setLockedGender] = useState("both");
   const [lockedDifficulty, setLockedDifficulty] = useState("normal");
   const [myPlayer, setMyPlayer] = useState({});
+  const [seasonResult, setSeasonResult] = useState(null);
 
   const [spinToken, setSpinToken] = useState(0);
   const [spinning, setSpinning] = useState(false);
@@ -106,6 +109,7 @@ function App() {
     setMyPlayer({});
     setSpinning(false);
     setSpinToken(0);
+    setSeasonResult(null);
     resetRound();
   };
 
@@ -160,9 +164,13 @@ function App() {
     resetRound();
   };
 
+  const handleSimulateSeason = () => {
+    setSeasonResult(simulateSeason(currentAverage));
+  };
+
   return (
     <div className="app">
-      <h1>6-0</h1>
+      <h1>Tennis 38-0</h1>
 
       {filledAspects.length > 0 && (
         <section className="my-player">
@@ -196,15 +204,25 @@ function App() {
       )}
 
       {isComplete ? (
-        <>
-          <p className="result">Your player is complete!</p>
-          <button
-            type="button"
-            className="primary-button"
-            onClick={handleRestart}>
-            Build Another Player
-          </button>
-        </>
+        seasonResult ? (
+          <SeasonResults season={seasonResult} onRestart={handleRestart} />
+        ) : (
+          <>
+            <p className="result">Your player is complete!</p>
+            <button
+              type="button"
+              className="primary-button"
+              onClick={handleSimulateSeason}>
+              Simulate Season
+            </button>
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={handleRestart}>
+              Build Another Player
+            </button>
+          </>
+        )
       ) : !lockedRange ? (
         <>
           <section className="toggle-picker">
