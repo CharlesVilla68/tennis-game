@@ -1,112 +1,76 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useEffect, useRef, useState } from "react";
 
-const SPIN_DURATION_MS = 2000
+const BOUNCE_OFFSETS = [1, -1, 0];
+const BOUNCE_STEP_MS = 160;
 
 export default function Wheel({
   options,
-  onFinish,
-  onSpinningChange,
-  buttonLabel = 'Spin',
+  targetValue,
+  spinToken,
+  spinMs = 1200,
+  label,
+  onLanded,
 }) {
-  const [displayed, setDisplayed] = useState(options[0] ?? '')
-  const [spinning, setSpinning] = useState(false)
-  const frameRef = useRef(null)
+  const [displayed, setDisplayed] = useState("?");
+  const [phase, setPhase] = useState("idle");
+  const rafRef = useRef(null);
+  const timersRef = useRef([]);
+
+  const clearAll = () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = null;
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+  };
+
+  useEffect(() => clearAll, []);
 
   useEffect(() => {
-    return () => {
-      if (frameRef.current) cancelAnimationFrame(frameRef.current)
-    }
-  }, [])
+    if (!spinToken || targetValue == null || options.length === 0) return;
+    clearAll();
 
-  useEffect(() => {
-    if (!spinning && options.length > 0) {
-      setDisplayed(options[0])
-    }
-  }, [options, spinning])
+    const targetIndex = Math.max(options.indexOf(targetValue), 0);
+    const totalSteps = options.length * 3 + targetIndex;
+    const start = performance.now();
 
-  const setSpinState = useCallback(
-    (value) => {
-      setSpinning(value)
-      onSpinningChange?.(value)
-    },
-    [onSpinningChange],
-  )
-
-  const spin = useCallback(() => {
-    if (spinning || options.length === 0) return
-
-    const finalIndex = Math.floor(Math.random() * options.length)
-    const totalSteps = options.length * 3 + finalIndex
-    const startTime = performance.now()
-
-    setSpinState(true)
+    setPhase("spinning");
 
     const tick = (now) => {
-      const elapsed = now - startTime
-      const progress = Math.min(elapsed / SPIN_DURATION_MS, 1)
-      const eased = 1 - Math.pow(1 - progress, 4)
-      const step = Math.floor(eased * totalSteps)
-
-      setDisplayed(options[step % options.length])
+      const progress = Math.min((now - start) / spinMs, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const step = Math.floor(eased * totalSteps);
+      setDisplayed(options[step % options.length]);
 
       if (progress >= 1) {
-        const result = options[finalIndex]
-        setDisplayed(result)
-        setSpinState(false)
-        onFinish(result)
-        return
+        bounce();
+        return;
       }
+      rafRef.current = requestAnimationFrame(tick);
+    };
 
-      frameRef.current = requestAnimationFrame(tick)
-    }
+    const bounce = () => {
+      setPhase("settling");
+      BOUNCE_OFFSETS.forEach((offset, i) => {
+        const t = setTimeout(() => {
+          const idx = (targetIndex + offset + options.length) % options.length;
+          setDisplayed(options[idx]);
+          if (offset === 0) {
+            setPhase("done");
+            onLanded?.(targetValue);
+          }
+        }, i * BOUNCE_STEP_MS);
+        timersRef.current.push(t);
+      });
+    };
 
-    frameRef.current = requestAnimationFrame(tick)
-  }, [options, onFinish, spinning, setSpinState])
+    rafRef.current = requestAnimationFrame(tick);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [spinToken]);
 
   return (
-    <div style={styles.container}>
-      <div style={styles.display}>{displayed || '—'}</div>
-      <button
-        type="button"
-        style={styles.button}
-        onClick={spin}
-        disabled={spinning || options.length === 0}
-      >
-        {spinning ? 'Spinning…' : buttonLabel}
-      </button>
+    <div className="wheel">
+      {label && <div className="wheel-label">{label}</div>}
+      <div className={`wheel-display wheel-${phase}`}>{displayed}</div>
     </div>
-  )
-}
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '1rem',
-  },
-  display: {
-    width: '280px',
-    padding: '2rem 1.5rem',
-    backgroundColor: '#2a2a2a',
-    border: '2px solid #444',
-    borderRadius: '8px',
-    fontSize: '1.5rem',
-    fontWeight: 600,
-    textAlign: 'center',
-    minHeight: '5rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    padding: '0.75rem 2rem',
-    fontSize: '1rem',
-    fontWeight: 600,
-    color: '#fff',
-    backgroundColor: '#3b82f6',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-  },
+  );
 }

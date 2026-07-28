@@ -105,6 +105,62 @@ h1 {
   background-color: #444;
 }
 
+.spin-row {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.wheel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.wheel-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.wheel-display {
+  width: 100%;
+  min-height: 4rem;
+  padding: 1rem 0.75rem;
+  background-color: #2a2a2a;
+  border: 2px solid #444;
+  border-radius: 8px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.wheel-idle {
+  opacity: 0.6;
+}
+
+.wheel-spinning {
+  border-color: #3b82f6;
+}
+
+.wheel-settling {
+  border-color: #fbbf24;
+  transform: scale(1.04);
+}
+
+.wheel-done {
+  border-color: #22c55e;
+  transform: scale(1);
+}
+
 .my-player {
   width: 100%;
   background-color: #232323;

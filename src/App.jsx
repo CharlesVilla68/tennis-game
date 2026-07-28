@@ -4,6 +4,8 @@ import { getPlayersForYear } from "./utils/getPlayersForYear";
 
 const MIN_YEAR = 1968;
 const MAX_YEAR = 2024;
+const YEAR_SPIN_MS = 1200;
+const PLAYER_SPIN_MS = 1700; // finishes ~0.5s after the year reel
 
 const ASPECTS = [
   "forehand",
@@ -31,10 +33,16 @@ function App() {
   const [startYear, setStartYear] = useState(1990);
   const [endYear, setEndYear] = useState(2020);
   const [lockedRange, setLockedRange] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(null);
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [spinning, setSpinning] = useState(false);
   const [myPlayer, setMyPlayer] = useState({});
+
+  const [spinToken, setSpinToken] = useState(0);
+  const [spinning, setSpinning] = useState(false);
+  const [roundYearTarget, setRoundYearTarget] = useState(null);
+  const [roundPlayerOptions, setRoundPlayerOptions] = useState([]);
+  const [roundPlayerTarget, setRoundPlayerTarget] = useState(null);
+  const [roundMatches, setRoundMatches] = useState([]);
+  const [roundPlayer, setRoundPlayer] = useState(null);
+  const [noMatchError, setNoMatchError] = useState(false);
 
   const isValidRange =
     startYear <= endYear && startYear >= MIN_YEAR && endYear <= MAX_YEAR;
@@ -48,42 +56,78 @@ function App() {
     return Array.from({ length: end - start + 1 }, (_, i) => String(start + i));
   }, [lockedRange]);
 
-  const matchingPlayers = useMemo(() => {
-    if (!selectedYear) return [];
-    return getPlayersForYear(selectedYear);
-  }, [selectedYear]);
-
-  const playerOptions = useMemo(
-    () => matchingPlayers.map((player) => player.name),
-    [matchingPlayers]
-  );
-
   const handleStart = () => {
     if (!isValidRange) return;
     setLockedRange({ start: startYear, end: endYear });
-    setSelectedYear(null);
-    setSelectedPlayer(null);
+    resetRound();
+  };
+
+  const resetRound = () => {
+    setRoundYearTarget(null);
+    setRoundPlayerOptions([]);
+    setRoundPlayerTarget(null);
+    setRoundMatches([]);
+    setRoundPlayer(null);
+    setNoMatchError(false);
   };
 
   const handleRestart = () => {
     setLockedRange(null);
-    setSelectedYear(null);
-    setSelectedPlayer(null);
-    setSpinning(false);
     setMyPlayer({});
+    setSpinning(false);
+    setSpinToken(0);
+    resetRound();
+  };
+
+  const handleSpin = () => {
+    if (spinning || yearOptions.length === 0) return;
+
+    let year = null;
+    let matches = [];
+    for (let i = 0; i < 50; i++) {
+      const candidate =
+        yearOptions[Math.floor(Math.random() * yearOptions.length)];
+      const found = getPlayersForYear(candidate);
+      if (found.length > 0) {
+        year = candidate;
+        matches = found;
+        break;
+      }
+    }
+
+    if (!year) {
+      setNoMatchError(true);
+      return;
+    }
+
+    const player = matches[Math.floor(Math.random() * matches.length)];
+
+    setRoundYearTarget(year);
+    setRoundMatches(matches);
+    setRoundPlayerOptions(matches.map((p) => p.name));
+    setRoundPlayerTarget(player.name);
+    setRoundPlayer(null);
+    setNoMatchError(false);
+    setSpinning(true);
+    setSpinToken((t) => t + 1);
+  };
+
+  const handlePlayerLanded = (name) => {
+    const player = roundMatches.find((p) => p.name === name);
+    setRoundPlayer(player);
+    setSpinning(false);
   };
 
   const handleDraftAspect = (aspect) => {
-    if (!selectedPlayer) return;
+    if (!roundPlayer) return;
     setMyPlayer((prev) => ({
       ...prev,
       [aspect]: {
-        value: selectedPlayer.ratings[aspect],
-        from: selectedPlayer.name,
+        value: roundPlayer.ratings[aspect],
+        from: roundPlayer.name,
       },
     }));
-    setSelectedYear(null);
-    setSelectedPlayer(null);
+    resetRound();
   };
 
   const overallRating = isComplete
@@ -178,59 +222,60 @@ function App() {
             {remainingAspects.length === 1 ? "" : "s"} left to draft
           </p>
 
-          {!selectedYear ? (
+          <div className="spin-row">
             <Wheel
               options={yearOptions}
-              buttonLabel="Spin for Year"
-              onSpinningChange={setSpinning}
-              onFinish={setSelectedYear}
+              targetValue={roundYearTarget}
+              spinToken={spinToken}
+              spinMs={YEAR_SPIN_MS}
+              label="Year"
             />
-          ) : (
+            <Wheel
+              options={roundPlayerOptions}
+              targetValue={roundPlayerTarget}
+              spinToken={spinToken}
+              spinMs={PLAYER_SPIN_MS}
+              label="Player"
+              onLanded={handlePlayerLanded}
+            />
+          </div>
+
+          {noMatchError && (
+            <p className="error">
+              Couldn't find an active player in a sampled year — try Spin again.
+            </p>
+          )}
+
+          {!roundPlayer && (
+            <button
+              type="button"
+              className="primary-button"
+              disabled={spinning}
+              onClick={handleSpin}>
+              {spinning ? "Spinning…" : "Spin"}
+            </button>
+          )}
+
+          {roundPlayer && (
             <>
-              <p className="result">Season: {selectedYear}</p>
-
-              {!selectedPlayer && matchingPlayers.length > 0 && (
-                <Wheel
-                  key={selectedYear}
-                  options={playerOptions}
-                  buttonLabel="Spin for Player"
-                  onSpinningChange={setSpinning}
-                  onFinish={(name) => {
-                    const player = matchingPlayers.find((p) => p.name === name);
-                    setSelectedPlayer(player);
-                  }}
-                />
-              )}
-
-              {!selectedPlayer && matchingPlayers.length === 0 && (
-                <p className="error">
-                  No players were active in {selectedYear}. Restart to try a new
-                  range.
-                </p>
-              )}
-
-              {selectedPlayer && (
-                <>
-                  <p className="result">Your player: {selectedPlayer.name}</p>
-                  <p className="locked-range">Pick one stat to draft:</p>
-                  <div className="aspect-grid">
-                    {remainingAspects.map((aspect) => (
-                      <button
-                        key={aspect}
-                        type="button"
-                        className="aspect-button"
-                        onClick={() => handleDraftAspect(aspect)}>
-                        <span className="aspect-name">
-                          {ASPECT_LABELS[aspect]}
-                        </span>
-                        <span className="aspect-value">
-                          {selectedPlayer.ratings[aspect]}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
+              <p className="result">
+                Your player: {roundPlayer.name} ({roundYearTarget})
+              </p>
+              <p className="locked-range">Pick one stat to draft:</p>
+              <div className="aspect-grid">
+                {remainingAspects.map((aspect) => (
+                  <button
+                    key={aspect}
+                    type="button"
+                    className="aspect-button"
+                    onClick={() => handleDraftAspect(aspect)}>
+                    <span className="aspect-name">{ASPECT_LABELS[aspect]}</span>
+                    <span className="aspect-value">
+                      {roundPlayer.ratings[aspect]}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </>
           )}
 
