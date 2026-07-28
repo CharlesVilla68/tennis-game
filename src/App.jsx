@@ -4,8 +4,8 @@ import { getPlayersForYear } from "./utils/getPlayersForYear";
 
 const MIN_YEAR = 1968;
 const MAX_YEAR = 2026;
-const YEAR_SPIN_MS = 1000;
-const PLAYER_SPIN_MS = 2000; // finishes ~0.5s after the year reel
+const YEAR_SPIN_MS = 1200;
+const PLAYER_SPIN_MS = 1700; // finishes ~0.5s after the year reel
 
 const DECADE_OPTIONS = [1968, 1970, 1980, 1990, 2000, 2010, 2020, 2026];
 
@@ -37,12 +37,19 @@ const GENDER_LABELS = {
   F: "Women's",
 };
 
+const DIFFICULTY_LABELS = {
+  normal: "Normal",
+  hard: "Hard",
+};
+
 function App() {
   const [startYear, setStartYear] = useState(1990);
   const [endYear, setEndYear] = useState(2020);
   const [genderFilter, setGenderFilter] = useState("both");
+  const [difficulty, setDifficulty] = useState("normal");
   const [lockedRange, setLockedRange] = useState(null);
   const [lockedGender, setLockedGender] = useState("both");
+  const [lockedDifficulty, setLockedDifficulty] = useState("normal");
   const [myPlayer, setMyPlayer] = useState({});
 
   const [spinToken, setSpinToken] = useState(0);
@@ -81,6 +88,7 @@ function App() {
     if (!isValidRange) return;
     setLockedRange({ start: startYear, end: endYear });
     setLockedGender(genderFilter);
+    setLockedDifficulty(difficulty);
     resetRound();
   };
 
@@ -154,7 +162,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Rog on my knob</h1>
+      <h1>Tennis 38-0</h1>
 
       {filledAspects.length > 0 && (
         <section className="my-player">
@@ -199,15 +207,29 @@ function App() {
         </>
       ) : !lockedRange ? (
         <>
-          <section className="gender-picker">
+          <section className="toggle-picker">
             {Object.entries(GENDER_LABELS).map(([value, label]) => (
               <button
                 key={value}
                 type="button"
-                className={`gender-button${
+                className={`toggle-button${
                   genderFilter === value ? " active" : ""
                 }`}
                 onClick={() => setGenderFilter(value)}>
+                {label}
+              </button>
+            ))}
+          </section>
+
+          <section className="toggle-picker">
+            {Object.entries(DIFFICULTY_LABELS).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                className={`toggle-button${
+                  difficulty === value ? " active" : ""
+                }`}
+                onClick={() => setDifficulty(value)}>
                 {label}
               </button>
             ))}
@@ -258,7 +280,9 @@ function App() {
         <>
           <p className="locked-range">
             Years {lockedRange.start}–{lockedRange.end} ·{" "}
-            {GENDER_LABELS[lockedGender]} · {remainingAspects.length} aspect
+            {GENDER_LABELS[lockedGender]} ·{" "}
+            {DIFFICULTY_LABELS[lockedDifficulty]} · {remainingAspects.length}{" "}
+            aspect
             {remainingAspects.length === 1 ? "" : "s"} left
           </p>
 
@@ -311,7 +335,9 @@ function App() {
                     onClick={() => handleDraftAspect(aspect)}>
                     <span className="aspect-name">{ASPECT_LABELS[aspect]}</span>
                     <span className="aspect-value">
-                      {roundPlayer.ratings[aspect]}
+                      {lockedDifficulty === "hard"
+                        ? "?"
+                        : roundPlayer.ratings[aspect]}
                     </span>
                   </button>
                 ))}

@@ -1,85 +1,101 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const ITEM_HEIGHT = 64;
-const LOOPS = 4;
-const SETTLE_MS = 260;
+const MAX_TRAVEL_STEPS = 160; // caps reel length regardless of how big the player pool gets
+
+function easeOutQuint(t) {
+  return 1 - Math.pow(1 - t, 5);
+}
+
+function easeInOutQuad(t) {
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+}
 
 export default function Wheel({
   options,
   targetValue,
   spinToken,
-  spinMs = 1500,
+  spinMs = 1400,
   label,
   onLanded,
 }) {
   const [translateY, setTranslateY] = useState(0);
-  const [transitionMs, setTransitionMs] = useState(0);
-  const [easing, setEasing] = useState("linear");
   const [phase, setPhase] = useState("idle");
-  const timersRef = useRef([]);
+  const rafRef = useRef(null);
+  const onLandedRef = useRef(onLanded);
+  onLandedRef.current = onLanded;
 
-  const clearTimers = () => {
-    timersRef.current.forEach(clearTimeout);
-    timersRef.current = [];
-  };
-
-  useEffect(() => clearTimers, []);
-
-  // Build the long vertical strip: several full loops of the options,
-  // then a run up to the target, then one extra item to overshoot into,
-  // then the target again so the reel can rock back onto it.
-  const strip = useMemo(() => {
-    if (options.length === 0 || targetValue == null) return [];
+  const { strip, travelSteps } = useMemo(() => {
+    if (options.length === 0 || targetValue == null) {
+      return { strip: [], travelSteps: 0 };
+    }
     const targetIndex = options.indexOf(targetValue);
     const safeIndex = targetIndex === -1 ? 0 : targetIndex;
 
+    // Fewer loops when the pool is huge, so travel distance stays capped.
+    const loops = options.length <= 20 ? 4 : options.length <= 60 ? 2 : 1;
+    const travel = Math.min(
+      loops * options.length + safeIndex,
+      MAX_TRAVEL_STEPS
+    );
+
+    const stripLength = travel + 3; // a little extra so the overshoot has real items to show
     const items = [];
-    for (let i = 0; i < LOOPS; i++) items.push(...options);
-    items.push(...options.slice(0, safeIndex + 1));
+    for (let i = 0; i <= stripLength; i++) {
+      const idx =
+        (safeIndex - travel + i + options.length * 1000) % options.length;
+      items.push(options[idx]);
+    }
 
-    const overshootValue = options[(safeIndex + 1) % options.length];
-    items.push(overshootValue);
-    items.push(options[safeIndex]);
-
-    return items;
+    return { strip: items, travelSteps: travel };
   }, [options, targetValue]);
+
+  useEffect(
+    () => () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    },
+    []
+  );
 
   useEffect(() => {
     if (!spinToken || strip.length === 0) return;
-    clearTimers();
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
-    // Snap back to the top instantly, no animation, before spinning again.
-    setTransitionMs(0);
-    setEasing("linear");
-    setTranslateY(0);
     setPhase("spinning");
+    setTranslateY(0);
 
-    const startTimer = setTimeout(() => {
-      const overshootIndex = strip.length - 2;
-      const finalIndex = strip.length - 1;
-      const mainDurationMs = Math.max(spinMs - SETTLE_MS, 300);
+    const rockSteps = 1; // scroll exactly one extra item past the winner, then rock back
+    const settledPixels = travelSteps * ITEM_HEIGHT;
+    const overshootPixels = settledPixels + rockSteps * ITEM_HEIGHT;
+    const mainPortion = 0.82; // fraction of the spin spent on the main decelerating scroll
+    const start = performance.now();
 
-      // Phase 1: fast scroll that decelerates, sliding one item past the winner.
-      setTransitionMs(mainDurationMs);
-      setEasing("cubic-bezier(0.15, 0.7, 0.25, 1)");
-      setTranslateY(-overshootIndex * ITEM_HEIGHT);
+    const frame = (now) => {
+      const t = Math.min((now - start) / spinMs, 1);
+      let pixels;
 
-      const settleTimer = setTimeout(() => {
-        // Phase 2: rock back up one item to land on the actual winner.
-        setPhase("settling");
-        setTransitionMs(SETTLE_MS);
-        setEasing("ease-in-out");
-        setTranslateY(-finalIndex * ITEM_HEIGHT);
+      if (t < mainPortion) {
+        pixels = overshootPixels * easeOutQuint(t / mainPortion);
+      } else {
+        setPhase((p) => (p === "spinning" ? "settling" : p));
+        const localT = (t - mainPortion) / (1 - mainPortion);
+        pixels =
+          overshootPixels -
+          (overshootPixels - settledPixels) * easeInOutQuad(localT);
+      }
 
-        const doneTimer = setTimeout(() => {
-          setPhase("done");
-          onLanded?.(targetValue);
-        }, SETTLE_MS);
-        timersRef.current.push(doneTimer);
-      }, mainDurationMs);
-      timersRef.current.push(settleTimer);
-    }, 20);
-    timersRef.current.push(startTimer);
+      setTranslateY(-pixels);
+
+      if (t >= 1) {
+        setTranslateY(-settledPixels);
+        setPhase("done");
+        onLandedRef.current?.(targetValue);
+        return;
+      }
+      rafRef.current = requestAnimationFrame(frame);
+    };
+
+    rafRef.current = requestAnimationFrame(frame);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spinToken]);
 
@@ -90,10 +106,7 @@ export default function Wheel({
         {strip.length > 0 ? (
           <div
             className="wheel-strip"
-            style={{
-              transform: `translateY(${translateY}px)`,
-              transition: `transform ${transitionMs}ms ${easing}`,
-            }}>
+            style={{ transform: `translate3d(0, ${translateY}px, 0)` }}>
             {strip.map((value, i) => (
               <div key={i} className="wheel-item">
                 {value}
