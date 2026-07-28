@@ -1,8 +1,298 @@
 [
   {
+    "name": "Rod Laver",
+    "gender": "M",
+    "primeYear": 1969,
+    "activeFrom": 1968,
+    "activeTo": 1979,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 88,
+      "serve": 85,
+      "footwork": 92,
+      "mentality": 93,
+      "speed": 90,
+      "netPlay": 95,
+      "stamina": 88
+    }
+  },
+  {
+    "name": "John Newcombe",
+    "gender": "M",
+    "primeYear": 1971,
+    "activeFrom": 1968,
+    "activeTo": 1981,
+    "ratings": {
+      "forehand": 82,
+      "backhand": 80,
+      "serve": 90,
+      "footwork": 84,
+      "mentality": 86,
+      "speed": 82,
+      "netPlay": 92,
+      "stamina": 85
+    }
+  },
+  {
+    "name": "Jimmy Connors",
+    "gender": "M",
+    "primeYear": 1978,
+    "activeFrom": 1970,
+    "activeTo": 1992,
+    "ratings": {
+      "forehand": 88,
+      "backhand": 94,
+      "serve": 82,
+      "footwork": 88,
+      "mentality": 96,
+      "speed": 87,
+      "netPlay": 84,
+      "stamina": 90
+    }
+  },
+  {
+    "name": "Bjorn Borg",
+    "gender": "M",
+    "primeYear": 1980,
+    "activeFrom": 1973,
+    "activeTo": 1983,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 92,
+      "serve": 78,
+      "footwork": 95,
+      "mentality": 94,
+      "speed": 94,
+      "netPlay": 75,
+      "stamina": 98
+    }
+  },
+  {
+    "name": "John McEnroe",
+    "gender": "M",
+    "primeYear": 1984,
+    "activeFrom": 1978,
+    "activeTo": 1992,
+    "ratings": {
+      "forehand": 78,
+      "backhand": 85,
+      "serve": 89,
+      "footwork": 90,
+      "mentality": 90,
+      "speed": 86,
+      "netPlay": 99,
+      "stamina": 80
+    }
+  },
+  {
+    "name": "Ivan Lendl",
+    "gender": "M",
+    "primeYear": 1987,
+    "activeFrom": 1978,
+    "activeTo": 1994,
+    "ratings": {
+      "forehand": 93,
+      "backhand": 89,
+      "serve": 88,
+      "footwork": 90,
+      "mentality": 92,
+      "speed": 86,
+      "netPlay": 78,
+      "stamina": 92
+    }
+  },
+  {
+    "name": "Mats Wilander",
+    "gender": "M",
+    "primeYear": 1988,
+    "activeFrom": 1981,
+    "activeTo": 1996,
+    "ratings": {
+      "forehand": 85,
+      "backhand": 86,
+      "serve": 80,
+      "footwork": 91,
+      "mentality": 93,
+      "speed": 88,
+      "netPlay": 80,
+      "stamina": 94
+    }
+  },
+  {
+    "name": "Boris Becker",
+    "gender": "M",
+    "primeYear": 1989,
+    "activeFrom": 1984,
+    "activeTo": 1999,
+    "ratings": {
+      "forehand": 86,
+      "backhand": 82,
+      "serve": 96,
+      "footwork": 84,
+      "mentality": 88,
+      "speed": 84,
+      "netPlay": 93,
+      "stamina": 85
+    }
+  },
+  {
+    "name": "Stefan Edberg",
+    "gender": "M",
+    "primeYear": 1990,
+    "activeFrom": 1983,
+    "activeTo": 1996,
+    "ratings": {
+      "forehand": 82,
+      "backhand": 84,
+      "serve": 91,
+      "footwork": 90,
+      "mentality": 89,
+      "speed": 88,
+      "netPlay": 97,
+      "stamina": 87
+    }
+  },
+  {
+    "name": "Pete Sampras",
+    "gender": "M",
+    "primeYear": 1995,
+    "activeFrom": 1988,
+    "activeTo": 2002,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 85,
+      "serve": 98,
+      "footwork": 92,
+      "mentality": 96,
+      "speed": 88,
+      "netPlay": 96,
+      "stamina": 82
+    }
+  },
+  {
+    "name": "Andre Agassi",
+    "gender": "M",
+    "primeYear": 1999,
+    "activeFrom": 1986,
+    "activeTo": 2006,
+    "ratings": {
+      "forehand": 95,
+      "backhand": 90,
+      "serve": 84,
+      "footwork": 88,
+      "mentality": 92,
+      "speed": 89,
+      "netPlay": 80,
+      "stamina": 87
+    }
+  },
+  {
+    "name": "Jim Courier",
+    "gender": "M",
+    "primeYear": 1992,
+    "activeFrom": 1988,
+    "activeTo": 2000,
+    "ratings": {
+      "forehand": 91,
+      "backhand": 87,
+      "serve": 85,
+      "footwork": 86,
+      "mentality": 90,
+      "speed": 85,
+      "netPlay": 78,
+      "stamina": 91
+    }
+  },
+  {
+    "name": "Goran Ivanisevic",
+    "gender": "M",
+    "primeYear": 2001,
+    "activeFrom": 1988,
+    "activeTo": 2004,
+    "ratings": {
+      "forehand": 82,
+      "backhand": 78,
+      "serve": 99,
+      "footwork": 80,
+      "mentality": 76,
+      "speed": 81,
+      "netPlay": 88,
+      "stamina": 78
+    }
+  },
+  {
+    "name": "Gustavo Kuerten",
+    "gender": "M",
+    "primeYear": 2000,
+    "activeFrom": 1995,
+    "activeTo": 2008,
+    "ratings": {
+      "forehand": 94,
+      "backhand": 86,
+      "serve": 82,
+      "footwork": 89,
+      "mentality": 87,
+      "speed": 86,
+      "netPlay": 76,
+      "stamina": 88
+    }
+  },
+  {
+    "name": "Marat Safin",
+    "gender": "M",
+    "primeYear": 2000,
+    "activeFrom": 1997,
+    "activeTo": 2009,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 91,
+      "serve": 89,
+      "footwork": 85,
+      "mentality": 78,
+      "speed": 85,
+      "netPlay": 77,
+      "stamina": 82
+    }
+  },
+  {
+    "name": "Lleyton Hewitt",
+    "gender": "M",
+    "primeYear": 2002,
+    "activeFrom": 1998,
+    "activeTo": 2016,
+    "ratings": {
+      "forehand": 84,
+      "backhand": 87,
+      "serve": 78,
+      "footwork": 93,
+      "mentality": 94,
+      "speed": 95,
+      "netPlay": 79,
+      "stamina": 93
+    }
+  },
+  {
+    "name": "Andy Roddick",
+    "gender": "M",
+    "primeYear": 2004,
+    "activeFrom": 2000,
+    "activeTo": 2012,
+    "ratings": {
+      "forehand": 86,
+      "backhand": 78,
+      "serve": 97,
+      "footwork": 82,
+      "mentality": 84,
+      "speed": 83,
+      "netPlay": 80,
+      "stamina": 84
+    }
+  },
+  {
     "name": "Roger Federer",
+    "gender": "M",
     "primeYear": 2007,
-    "activeFrom": 1999,
+    "activeFrom": 1998,
     "activeTo": 2022,
     "ratings": {
       "forehand": 92,
@@ -17,6 +307,7 @@
   },
   {
     "name": "Rafael Nadal",
+    "gender": "M",
     "primeYear": 2010,
     "activeFrom": 2001,
     "activeTo": 2024,
@@ -33,6 +324,7 @@
   },
   {
     "name": "Novak Djokovic",
+    "gender": "M",
     "primeYear": 2015,
     "activeFrom": 2003,
     "activeTo": 2024,
@@ -48,39 +340,161 @@
     }
   },
   {
-    "name": "Serena Williams",
-    "primeYear": 2013,
-    "activeFrom": 1995,
+    "name": "Andy Murray",
+    "gender": "M",
+    "primeYear": 2016,
+    "activeFrom": 2005,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 87,
+      "backhand": 90,
+      "serve": 84,
+      "footwork": 93,
+      "mentality": 91,
+      "speed": 92,
+      "netPlay": 82,
+      "stamina": 90
+    }
+  },
+  {
+    "name": "Stan Wawrinka",
+    "gender": "M",
+    "primeYear": 2016,
+    "activeFrom": 2002,
     "activeTo": 2022,
     "ratings": {
-      "forehand": 96,
-      "backhand": 92,
-      "serve": 99,
+      "forehand": 88,
+      "backhand": 96,
+      "serve": 87,
+      "footwork": 84,
+      "mentality": 85,
+      "speed": 80,
+      "netPlay": 76,
+      "stamina": 84
+    }
+  },
+  {
+    "name": "Juan Martin del Potro",
+    "gender": "M",
+    "primeYear": 2009,
+    "activeFrom": 2005,
+    "activeTo": 2022,
+    "ratings": {
+      "forehand": 97,
+      "backhand": 85,
+      "serve": 89,
+      "footwork": 78,
+      "mentality": 84,
+      "speed": 78,
+      "netPlay": 75,
+      "stamina": 80
+    }
+  },
+  {
+    "name": "Daniil Medvedev",
+    "gender": "M",
+    "primeYear": 2021,
+    "activeFrom": 2014,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 85,
+      "backhand": 89,
+      "serve": 87,
       "footwork": 88,
-      "mentality": 97,
-      "speed": 90,
+      "mentality": 88,
+      "speed": 87,
+      "netPlay": 74,
+      "stamina": 88
+    }
+  },
+  {
+    "name": "Carlos Alcaraz",
+    "gender": "M",
+    "primeYear": 2023,
+    "activeFrom": 2018,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 92,
+      "backhand": 87,
+      "serve": 86,
+      "footwork": 95,
+      "mentality": 89,
+      "speed": 94,
       "netPlay": 88,
+      "stamina": 90
+    }
+  },
+  {
+    "name": "Jannik Sinner",
+    "gender": "M",
+    "primeYear": 2024,
+    "activeFrom": 2018,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 93,
+      "serve": 88,
+      "footwork": 92,
+      "mentality": 91,
+      "speed": 90,
+      "netPlay": 80,
       "stamina": 91
     }
   },
   {
-    "name": "Pete Sampras",
-    "primeYear": 1995,
-    "activeFrom": 1988,
-    "activeTo": 2002,
+    "name": "Billie Jean King",
+    "gender": "F",
+    "primeYear": 1972,
+    "activeFrom": 1968,
+    "activeTo": 1983,
     "ratings": {
-      "forehand": 90,
-      "backhand": 85,
-      "serve": 98,
-      "footwork": 92,
-      "mentality": 96,
-      "speed": 88,
-      "netPlay": 96,
-      "stamina": 82
+      "forehand": 82,
+      "backhand": 78,
+      "serve": 85,
+      "footwork": 86,
+      "mentality": 92,
+      "speed": 84,
+      "netPlay": 94,
+      "stamina": 85
+    }
+  },
+  {
+    "name": "Chris Evert",
+    "gender": "F",
+    "primeYear": 1980,
+    "activeFrom": 1968,
+    "activeTo": 1989,
+    "ratings": {
+      "forehand": 88,
+      "backhand": 93,
+      "serve": 76,
+      "footwork": 90,
+      "mentality": 95,
+      "speed": 87,
+      "netPlay": 72,
+      "stamina": 92
+    }
+  },
+  {
+    "name": "Martina Navratilova",
+    "gender": "F",
+    "primeYear": 1984,
+    "activeFrom": 1975,
+    "activeTo": 1994,
+    "ratings": {
+      "forehand": 88,
+      "backhand": 90,
+      "serve": 86,
+      "footwork": 96,
+      "mentality": 97,
+      "speed": 92,
+      "netPlay": 99,
+      "stamina": 94
     }
   },
   {
     "name": "Steffi Graf",
+    "gender": "F",
     "primeYear": 1988,
     "activeFrom": 1982,
     "activeTo": 1999,
@@ -96,35 +510,292 @@
     }
   },
   {
-    "name": "Bjorn Borg",
-    "primeYear": 1980,
-    "activeFrom": 1973,
-    "activeTo": 1983,
+    "name": "Monica Seles",
+    "gender": "F",
+    "primeYear": 1992,
+    "activeFrom": 1989,
+    "activeTo": 2003,
     "ratings": {
-      "forehand": 90,
-      "backhand": 92,
-      "serve": 78,
-      "footwork": 95,
-      "mentality": 94,
-      "speed": 94,
-      "netPlay": 75,
-      "stamina": 98
+      "forehand": 93,
+      "backhand": 95,
+      "serve": 82,
+      "footwork": 88,
+      "mentality": 93,
+      "speed": 89,
+      "netPlay": 74,
+      "stamina": 89
     }
   },
   {
-    "name": "Martina Navratilova",
-    "primeYear": 1984,
-    "activeFrom": 1975,
-    "activeTo": 1994,
+    "name": "Arantxa Sanchez Vicario",
+    "gender": "F",
+    "primeYear": 1994,
+    "activeFrom": 1985,
+    "activeTo": 2002,
+    "ratings": {
+      "forehand": 85,
+      "backhand": 84,
+      "serve": 74,
+      "footwork": 92,
+      "mentality": 91,
+      "speed": 93,
+      "netPlay": 70,
+      "stamina": 95
+    }
+  },
+  {
+    "name": "Martina Hingis",
+    "gender": "F",
+    "primeYear": 1997,
+    "activeFrom": 1994,
+    "activeTo": 2007,
+    "ratings": {
+      "forehand": 86,
+      "backhand": 87,
+      "serve": 76,
+      "footwork": 92,
+      "mentality": 96,
+      "speed": 90,
+      "netPlay": 88,
+      "stamina": 82
+    }
+  },
+  {
+    "name": "Lindsay Davenport",
+    "gender": "F",
+    "primeYear": 1999,
+    "activeFrom": 1993,
+    "activeTo": 2008,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 88,
+      "serve": 88,
+      "footwork": 80,
+      "mentality": 87,
+      "speed": 78,
+      "netPlay": 78,
+      "stamina": 82
+    }
+  },
+  {
+    "name": "Venus Williams",
+    "gender": "F",
+    "primeYear": 2000,
+    "activeFrom": 1994,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 84,
+      "serve": 93,
+      "footwork": 89,
+      "mentality": 88,
+      "speed": 91,
+      "netPlay": 82,
+      "stamina": 87
+    }
+  },
+  {
+    "name": "Serena Williams",
+    "gender": "F",
+    "primeYear": 2013,
+    "activeFrom": 1995,
+    "activeTo": 2022,
+    "ratings": {
+      "forehand": 96,
+      "backhand": 92,
+      "serve": 99,
+      "footwork": 88,
+      "mentality": 97,
+      "speed": 90,
+      "netPlay": 88,
+      "stamina": 91
+    }
+  },
+  {
+    "name": "Justine Henin",
+    "gender": "F",
+    "primeYear": 2007,
+    "activeFrom": 1999,
+    "activeTo": 2011,
+    "ratings": {
+      "forehand": 93,
+      "backhand": 96,
+      "serve": 82,
+      "footwork": 92,
+      "mentality": 94,
+      "speed": 91,
+      "netPlay": 84,
+      "stamina": 89
+    }
+  },
+  {
+    "name": "Kim Clijsters",
+    "gender": "F",
+    "primeYear": 2010,
+    "activeFrom": 1997,
+    "activeTo": 2012,
+    "ratings": {
+      "forehand": 89,
+      "backhand": 90,
+      "serve": 84,
+      "footwork": 93,
+      "mentality": 88,
+      "speed": 92,
+      "netPlay": 80,
+      "stamina": 90
+    }
+  },
+  {
+    "name": "Maria Sharapova",
+    "gender": "F",
+    "primeYear": 2008,
+    "activeFrom": 2001,
+    "activeTo": 2020,
+    "ratings": {
+      "forehand": 91,
+      "backhand": 90,
+      "serve": 87,
+      "footwork": 78,
+      "mentality": 93,
+      "speed": 78,
+      "netPlay": 74,
+      "stamina": 84
+    }
+  },
+  {
+    "name": "Victoria Azarenka",
+    "gender": "F",
+    "primeYear": 2012,
+    "activeFrom": 2003,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 89,
+      "backhand": 91,
+      "serve": 83,
+      "footwork": 88,
+      "mentality": 88,
+      "speed": 88,
+      "netPlay": 72,
+      "stamina": 87
+    }
+  },
+  {
+    "name": "Caroline Wozniacki",
+    "gender": "F",
+    "primeYear": 2010,
+    "activeFrom": 2005,
+    "activeTo": 2020,
+    "ratings": {
+      "forehand": 85,
+      "backhand": 86,
+      "serve": 76,
+      "footwork": 91,
+      "mentality": 85,
+      "speed": 92,
+      "netPlay": 70,
+      "stamina": 93
+    }
+  },
+  {
+    "name": "Angelique Kerber",
+    "gender": "F",
+    "primeYear": 2016,
+    "activeFrom": 2003,
+    "activeTo": 2021,
+    "ratings": {
+      "forehand": 84,
+      "backhand": 89,
+      "serve": 78,
+      "footwork": 90,
+      "mentality": 90,
+      "speed": 89,
+      "netPlay": 74,
+      "stamina": 91
+    }
+  },
+  {
+    "name": "Simona Halep",
+    "gender": "F",
+    "primeYear": 2018,
+    "activeFrom": 2006,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 87,
+      "backhand": 90,
+      "serve": 76,
+      "footwork": 92,
+      "mentality": 89,
+      "speed": 91,
+      "netPlay": 74,
+      "stamina": 89
+    }
+  },
+  {
+    "name": "Naomi Osaka",
+    "gender": "F",
+    "primeYear": 2019,
+    "activeFrom": 2013,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 87,
+      "serve": 90,
+      "footwork": 80,
+      "mentality": 86,
+      "speed": 80,
+      "netPlay": 70,
+      "stamina": 80
+    }
+  },
+  {
+    "name": "Ashleigh Barty",
+    "gender": "F",
+    "primeYear": 2021,
+    "activeFrom": 2010,
+    "activeTo": 2022,
     "ratings": {
       "forehand": 88,
-      "backhand": 90,
-      "serve": 86,
-      "footwork": 96,
-      "mentality": 97,
-      "speed": 92,
-      "netPlay": 99,
-      "stamina": 94
+      "backhand": 86,
+      "serve": 84,
+      "footwork": 90,
+      "mentality": 92,
+      "speed": 87,
+      "netPlay": 84,
+      "stamina": 86
+    }
+  },
+  {
+    "name": "Iga Swiatek",
+    "gender": "F",
+    "primeYear": 2022,
+    "activeFrom": 2016,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 92,
+      "backhand": 89,
+      "serve": 82,
+      "footwork": 93,
+      "mentality": 90,
+      "speed": 90,
+      "netPlay": 76,
+      "stamina": 91
+    }
+  },
+  {
+    "name": "Coco Gauff",
+    "gender": "F",
+    "primeYear": 2023,
+    "activeFrom": 2018,
+    "activeTo": 2024,
+    "ratings": {
+      "forehand": 87,
+      "backhand": 88,
+      "serve": 83,
+      "footwork": 92,
+      "mentality": 86,
+      "speed": 93,
+      "netPlay": 78,
+      "stamina": 88
     }
   }
 ]

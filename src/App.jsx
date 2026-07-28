@@ -29,10 +29,18 @@ const ASPECT_LABELS = {
   stamina: "Stamina",
 };
 
+const GENDER_LABELS = {
+  both: "All Players",
+  M: "Men's",
+  F: "Women's",
+};
+
 function App() {
   const [startYear, setStartYear] = useState(1990);
   const [endYear, setEndYear] = useState(2020);
+  const [genderFilter, setGenderFilter] = useState("both");
   const [lockedRange, setLockedRange] = useState(null);
+  const [lockedGender, setLockedGender] = useState("both");
   const [myPlayer, setMyPlayer] = useState({});
 
   const [spinToken, setSpinToken] = useState(0);
@@ -70,6 +78,7 @@ function App() {
   const handleStart = () => {
     if (!isValidRange) return;
     setLockedRange({ start: startYear, end: endYear });
+    setLockedGender(genderFilter);
     resetRound();
   };
 
@@ -98,7 +107,7 @@ function App() {
     for (let i = 0; i < 50; i++) {
       const candidate =
         yearOptions[Math.floor(Math.random() * yearOptions.length)];
-      const found = getPlayersForYear(candidate);
+      const found = getPlayersForYear(candidate, lockedGender);
       if (found.length > 0) {
         year = candidate;
         matches = found;
@@ -188,6 +197,20 @@ function App() {
         </>
       ) : !lockedRange ? (
         <>
+          <section className="gender-picker">
+            {Object.entries(GENDER_LABELS).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                className={`gender-button${
+                  genderFilter === value ? " active" : ""
+                }`}
+                onClick={() => setGenderFilter(value)}>
+                {label}
+              </button>
+            ))}
+          </section>
+
           <section className="year-picker">
             <label>
               Start year
@@ -229,8 +252,8 @@ function App() {
         <>
           <p className="locked-range">
             Years {lockedRange.start}–{lockedRange.end} ·{" "}
-            {remainingAspects.length} aspect
-            {remainingAspects.length === 1 ? "" : "s"} left to draft
+            {GENDER_LABELS[lockedGender]} · {remainingAspects.length} aspect
+            {remainingAspects.length === 1 ? "" : "s"} left
           </p>
 
           <div className="spin-row">
