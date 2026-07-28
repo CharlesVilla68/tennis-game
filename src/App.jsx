@@ -3,9 +3,11 @@ import Wheel from "./components/Wheel";
 import { getPlayersForYear } from "./utils/getPlayersForYear";
 
 const MIN_YEAR = 1968;
-const MAX_YEAR = 2024;
+const MAX_YEAR = 2026;
 const YEAR_SPIN_MS = 1200;
 const PLAYER_SPIN_MS = 1700; // finishes ~0.5s after the year reel
+
+const DECADE_OPTIONS = [1968, 1970, 1980, 1990, 2000, 2010, 2020, 2026];
 
 const ASPECTS = [
   "forehand",
@@ -214,29 +216,33 @@ function App() {
           <section className="year-picker">
             <label>
               Start year
-              <input
-                type="number"
-                min={MIN_YEAR}
-                max={MAX_YEAR}
+              <select
                 value={startYear}
-                onChange={(e) => setStartYear(Number(e.target.value))}
-              />
+                onChange={(e) => setStartYear(Number(e.target.value))}>
+                {DECADE_OPTIONS.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
             </label>
             <label>
               End year
-              <input
-                type="number"
-                min={MIN_YEAR}
-                max={MAX_YEAR}
+              <select
                 value={endYear}
-                onChange={(e) => setEndYear(Number(e.target.value))}
-              />
+                onChange={(e) => setEndYear(Number(e.target.value))}>
+                {DECADE_OPTIONS.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
             </label>
           </section>
 
           {!isValidRange && (
             <p className="error">
-              Enter a valid range ({MIN_YEAR}–{MAX_YEAR}, start ≤ end).
+              Start year must be before or equal to end year.
             </p>
           )}
 

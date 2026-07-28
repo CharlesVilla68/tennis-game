@@ -50,7 +50,7 @@ h1 {
   color: #aaa;
 }
 
-.year-picker input {
+.year-picker input, .year-picker select {
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   color: #fff;
