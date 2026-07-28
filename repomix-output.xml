@@ -426,121 +426,6 @@ export default defineConfig({
 })
 </file>
 
-<file path="src/components/Wheel.jsx">
-import { useState, useRef, useCallback, useEffect } from 'react'
-
-const SPIN_DURATION_MS = 2000
-
-export default function Wheel({
-  options,
-  onFinish,
-  onSpinningChange,
-  buttonLabel = 'Spin',
-}) {
-  const [displayed, setDisplayed] = useState(options[0] ?? '')
-  const [spinning, setSpinning] = useState(false)
-  const frameRef = useRef(null)
-
-  useEffect(() => {
-    return () => {
-      if (frameRef.current) cancelAnimationFrame(frameRef.current)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!spinning && options.length > 0) {
-      setDisplayed(options[0])
-    }
-  }, [options, spinning])
-
-  const setSpinState = useCallback(
-    (value) => {
-      setSpinning(value)
-      onSpinningChange?.(value)
-    },
-    [onSpinningChange],
-  )
-
-  const spin = useCallback(() => {
-    if (spinning || options.length === 0) return
-
-    const finalIndex = Math.floor(Math.random() * options.length)
-    const totalSteps = options.length * 3 + finalIndex
-    const startTime = performance.now()
-
-    setSpinState(true)
-
-    const tick = (now) => {
-      const elapsed = now - startTime
-      const progress = Math.min(elapsed / SPIN_DURATION_MS, 1)
-      const eased = 1 - Math.pow(1 - progress, 4)
-      const step = Math.floor(eased * totalSteps)
-
-      setDisplayed(options[step % options.length])
-
-      if (progress >= 1) {
-        const result = options[finalIndex]
-        setDisplayed(result)
-        setSpinState(false)
-        onFinish(result)
-        return
-      }
-
-      frameRef.current = requestAnimationFrame(tick)
-    }
-
-    frameRef.current = requestAnimationFrame(tick)
-  }, [options, onFinish, spinning, setSpinState])
-
-  return (
-    <div style={styles.container}>
-      <div style={styles.display}>{displayed || '—'}</div>
-      <button
-        type="button"
-        style={styles.button}
-        onClick={spin}
-        disabled={spinning || options.length === 0}
-      >
-        {spinning ? 'Spinning…' : buttonLabel}
-      </button>
-    </div>
-  )
-}
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '1rem',
-  },
-  display: {
-    width: '280px',
-    padding: '2rem 1.5rem',
-    backgroundColor: '#2a2a2a',
-    border: '2px solid #444',
-    borderRadius: '8px',
-    fontSize: '1.5rem',
-    fontWeight: 600,
-    textAlign: 'center',
-    minHeight: '5rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    padding: '0.75rem 2rem',
-    fontSize: '1rem',
-    fontWeight: 600,
-    color: '#fff',
-    backgroundColor: '#3b82f6',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-  },
-}
-</file>
-
 <file path="src/data/players.json">
 [
   {
@@ -674,60 +559,264 @@ const styles = {
 ]
 </file>
 
-<file path="src/App.jsx">
-import { useMemo, useState } from 'react'
-import Wheel from './components/Wheel'
-import { getPlayersForYear } from './utils/getPlayersForYear'
+<file path="src/components/Wheel.jsx">
+import { useEffect, useRef, useState } from "react";
 
-const MIN_YEAR = 1968
-const MAX_YEAR = 2024
+const BOUNCE_OFFSETS = [1, -1, 0];
+const BOUNCE_STEP_MS = 160;
+
+export default function Wheel({
+  options,
+  targetValue,
+  spinToken,
+  spinMs = 1200,
+  label,
+  onLanded,
+}) {
+  const [displayed, setDisplayed] = useState("?");
+  const [phase, setPhase] = useState("idle");
+  const rafRef = useRef(null);
+  const timersRef = useRef([]);
+
+  const clearAll = () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = null;
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+  };
+
+  useEffect(() => clearAll, []);
+
+  useEffect(() => {
+    if (!spinToken || targetValue == null || options.length === 0) return;
+    clearAll();
+
+    const targetIndex = Math.max(options.indexOf(targetValue), 0);
+    const totalSteps = options.length * 3 + targetIndex;
+    const start = performance.now();
+
+    setPhase("spinning");
+
+    const tick = (now) => {
+      const progress = Math.min((now - start) / spinMs, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const step = Math.floor(eased * totalSteps);
+      setDisplayed(options[step % options.length]);
+
+      if (progress >= 1) {
+        bounce();
+        return;
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    const bounce = () => {
+      setPhase("settling");
+      BOUNCE_OFFSETS.forEach((offset, i) => {
+        const t = setTimeout(() => {
+          const idx = (targetIndex + offset + options.length) % options.length;
+          setDisplayed(options[idx]);
+          if (offset === 0) {
+            setPhase("done");
+            onLanded?.(targetValue);
+          }
+        }, i * BOUNCE_STEP_MS);
+        timersRef.current.push(t);
+      });
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [spinToken]);
+
+  return (
+    <div className="wheel">
+      {label && <div className="wheel-label">{label}</div>}
+      <div className={`wheel-display wheel-${phase}`}>{displayed}</div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/App.jsx">
+import { useMemo, useState } from "react";
+import Wheel from "./components/Wheel";
+import { getPlayersForYear } from "./utils/getPlayersForYear";
+
+const MIN_YEAR = 1968;
+const MAX_YEAR = 2024;
+const YEAR_SPIN_MS = 1200;
+const PLAYER_SPIN_MS = 1700; // finishes ~0.5s after the year reel
+
+const ASPECTS = [
+  "forehand",
+  "backhand",
+  "serve",
+  "footwork",
+  "mentality",
+  "speed",
+  "netPlay",
+  "stamina",
+];
+
+const ASPECT_LABELS = {
+  forehand: "Forehand",
+  backhand: "Backhand",
+  serve: "Serve",
+  footwork: "Footwork",
+  mentality: "Mentality",
+  speed: "Speed",
+  netPlay: "Net Play",
+  stamina: "Stamina",
+};
 
 function App() {
-  const [startYear, setStartYear] = useState(1990)
-  const [endYear, setEndYear] = useState(2020)
-  const [lockedRange, setLockedRange] = useState(null)
-  const [selectedYear, setSelectedYear] = useState(null)
-  const [selectedPlayer, setSelectedPlayer] = useState(null)
-  const [spinning, setSpinning] = useState(false)
+  const [startYear, setStartYear] = useState(1990);
+  const [endYear, setEndYear] = useState(2020);
+  const [lockedRange, setLockedRange] = useState(null);
+  const [myPlayer, setMyPlayer] = useState({});
+
+  const [spinToken, setSpinToken] = useState(0);
+  const [spinning, setSpinning] = useState(false);
+  const [roundYearTarget, setRoundYearTarget] = useState(null);
+  const [roundPlayerOptions, setRoundPlayerOptions] = useState([]);
+  const [roundPlayerTarget, setRoundPlayerTarget] = useState(null);
+  const [roundMatches, setRoundMatches] = useState([]);
+  const [roundPlayer, setRoundPlayer] = useState(null);
+  const [noMatchError, setNoMatchError] = useState(false);
 
   const isValidRange =
-    startYear <= endYear && startYear >= MIN_YEAR && endYear <= MAX_YEAR
+    startYear <= endYear && startYear >= MIN_YEAR && endYear <= MAX_YEAR;
+
+  const remainingAspects = ASPECTS.filter((aspect) => !(aspect in myPlayer));
+  const isComplete = remainingAspects.length === 0;
 
   const yearOptions = useMemo(() => {
-    if (!lockedRange) return []
-    const { start, end } = lockedRange
-    return Array.from({ length: end - start + 1 }, (_, i) => String(start + i))
-  }, [lockedRange])
-
-  const matchingPlayers = useMemo(() => {
-    if (!selectedYear) return []
-    return getPlayersForYear(selectedYear)
-  }, [selectedYear])
-
-  const playerOptions = useMemo(
-    () => matchingPlayers.map((player) => player.name),
-    [matchingPlayers],
-  )
+    if (!lockedRange) return [];
+    const { start, end } = lockedRange;
+    return Array.from({ length: end - start + 1 }, (_, i) => String(start + i));
+  }, [lockedRange]);
 
   const handleStart = () => {
-    if (!isValidRange) return
-    setLockedRange({ start: startYear, end: endYear })
-    setSelectedYear(null)
-    setSelectedPlayer(null)
-  }
+    if (!isValidRange) return;
+    setLockedRange({ start: startYear, end: endYear });
+    resetRound();
+  };
+
+  const resetRound = () => {
+    setRoundYearTarget(null);
+    setRoundPlayerOptions([]);
+    setRoundPlayerTarget(null);
+    setRoundMatches([]);
+    setRoundPlayer(null);
+    setNoMatchError(false);
+  };
 
   const handleRestart = () => {
-    setLockedRange(null)
-    setSelectedYear(null)
-    setSelectedPlayer(null)
-    setSpinning(false)
-  }
+    setLockedRange(null);
+    setMyPlayer({});
+    setSpinning(false);
+    setSpinToken(0);
+    resetRound();
+  };
+
+  const handleSpin = () => {
+    if (spinning || yearOptions.length === 0) return;
+
+    let year = null;
+    let matches = [];
+    for (let i = 0; i < 50; i++) {
+      const candidate =
+        yearOptions[Math.floor(Math.random() * yearOptions.length)];
+      const found = getPlayersForYear(candidate);
+      if (found.length > 0) {
+        year = candidate;
+        matches = found;
+        break;
+      }
+    }
+
+    if (!year) {
+      setNoMatchError(true);
+      return;
+    }
+
+    const player = matches[Math.floor(Math.random() * matches.length)];
+
+    setRoundYearTarget(year);
+    setRoundMatches(matches);
+    setRoundPlayerOptions(matches.map((p) => p.name));
+    setRoundPlayerTarget(player.name);
+    setRoundPlayer(null);
+    setNoMatchError(false);
+    setSpinning(true);
+    setSpinToken((t) => t + 1);
+  };
+
+  const handlePlayerLanded = (name) => {
+    const player = roundMatches.find((p) => p.name === name);
+    setRoundPlayer(player);
+    setSpinning(false);
+  };
+
+  const handleDraftAspect = (aspect) => {
+    if (!roundPlayer) return;
+    setMyPlayer((prev) => ({
+      ...prev,
+      [aspect]: {
+        value: roundPlayer.ratings[aspect],
+        from: roundPlayer.name,
+      },
+    }));
+    resetRound();
+  };
+
+  const overallRating = isComplete
+    ? Math.round(
+        ASPECTS.reduce((sum, aspect) => sum + myPlayer[aspect].value, 0) /
+          ASPECTS.length
+      )
+    : null;
 
   return (
     <div className="app">
       <h1>Tennis 38-0</h1>
 
-      {!lockedRange ? (
+      {Object.keys(myPlayer).length > 0 && (
+        <section className="my-player">
+          <h2>My Player{isComplete ? ` — Overall ${overallRating}` : ""}</h2>
+          <ul className="my-player-list">
+            {ASPECTS.map((aspect) =>
+              myPlayer[aspect] ? (
+                <li key={aspect}>
+                  <span className="aspect-name">{ASPECT_LABELS[aspect]}</span>
+                  <span className="aspect-value">{myPlayer[aspect].value}</span>
+                  <span className="aspect-from">
+                    from {myPlayer[aspect].from}
+                  </span>
+                </li>
+              ) : (
+                <li key={aspect} className="aspect-empty">
+                  <span className="aspect-name">{ASPECT_LABELS[aspect]}</span>
+                  <span className="aspect-value">—</span>
+                </li>
+              )
+            )}
+          </ul>
+        </section>
+      )}
+
+      {isComplete ? (
+        <>
+          <p className="result">Your player is complete!</p>
+          <button
+            type="button"
+            className="primary-button"
+            onClick={handleRestart}>
+            Build Another Player
+          </button>
+        </>
+      ) : !lockedRange ? (
         <>
           <section className="year-picker">
             <label>
@@ -762,51 +851,72 @@ function App() {
             type="button"
             className="primary-button"
             disabled={!isValidRange}
-            onClick={handleStart}
-          >
+            onClick={handleStart}>
             Start
           </button>
         </>
       ) : (
         <>
           <p className="locked-range">
-            Years {lockedRange.start}–{lockedRange.end}
+            Years {lockedRange.start}–{lockedRange.end} ·{" "}
+            {remainingAspects.length} aspect
+            {remainingAspects.length === 1 ? "" : "s"} left to draft
           </p>
 
-          {!selectedYear ? (
+          <div className="spin-row">
             <Wheel
               options={yearOptions}
-              buttonLabel="Spin for Year"
-              onSpinningChange={setSpinning}
-              onFinish={setSelectedYear}
+              targetValue={roundYearTarget}
+              spinToken={spinToken}
+              spinMs={YEAR_SPIN_MS}
+              label="Year"
             />
-          ) : (
+            <Wheel
+              options={roundPlayerOptions}
+              targetValue={roundPlayerTarget}
+              spinToken={spinToken}
+              spinMs={PLAYER_SPIN_MS}
+              label="Player"
+              onLanded={handlePlayerLanded}
+            />
+          </div>
+
+          {noMatchError && (
+            <p className="error">
+              Couldn't find an active player in a sampled year — try Spin again.
+            </p>
+          )}
+
+          {!roundPlayer && (
+            <button
+              type="button"
+              className="primary-button"
+              disabled={spinning}
+              onClick={handleSpin}>
+              {spinning ? "Spinning…" : "Spin"}
+            </button>
+          )}
+
+          {roundPlayer && (
             <>
-              <p className="result">Season: {selectedYear}</p>
-
-              {!selectedPlayer && matchingPlayers.length > 0 && (
-                <Wheel
-                  key={selectedYear}
-                  options={playerOptions}
-                  buttonLabel="Spin for Player"
-                  onSpinningChange={setSpinning}
-                  onFinish={(name) => {
-                    const player = matchingPlayers.find((p) => p.name === name)
-                    setSelectedPlayer(player)
-                  }}
-                />
-              )}
-
-              {!selectedPlayer && matchingPlayers.length === 0 && (
-                <p className="error">
-                  No players were active in {selectedYear}. Restart to try a
-                  new range.
-                </p>
-              )}
-
-              {selectedPlayer && (
-                <p className="result">Your player: {selectedPlayer.name}</p>
-              )}
+              <p className="result">
+                Your player: {roundPlayer.name} ({roundYearTarget})
+              </p>
+              <p className="locked-range">Pick one stat to draft:</p>
+              <div className="aspect-grid">
+                {remainingAspects.map((aspect) => (
+                  <button
+                    key={aspect}
+                    type="button"
+                    className="aspect-button"
+                    onClick={() => handleDraftAspect(aspect)}>
+                    <span className="aspect-name">{ASPECT_LABELS[aspect]}</span>
+                    <span className="aspect-value">
+                      {roundPlayer.ratings[aspect]}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </>
           )}
 
@@ -814,17 +924,16 @@ function App() {
             type="button"
             className="secondary-button"
             disabled={spinning}
-            onClick={handleRestart}
-          >
+            onClick={handleRestart}>
             Restart
           </button>
         </>
       )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
 </file>
 
 <file path="src/index.css">
@@ -856,7 +965,7 @@ body {
   align-items: center;
   gap: 1.5rem;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
 }
 
 h1 {
@@ -906,6 +1015,7 @@ h1 {
   margin: 0;
   font-size: 1rem;
   color: #aaa;
+  text-align: center;
 }
 
 .primary-button,
@@ -932,6 +1042,138 @@ h1 {
 .secondary-button {
   color: #fff;
   background-color: #444;
+}
+
+.spin-row {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.wheel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.wheel-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.wheel-display {
+  width: 100%;
+  min-height: 4rem;
+  padding: 1rem 0.75rem;
+  background-color: #2a2a2a;
+  border: 2px solid #444;
+  border-radius: 8px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.wheel-idle {
+  opacity: 0.6;
+}
+
+.wheel-spinning {
+  border-color: #3b82f6;
+}
+
+.wheel-settling {
+  border-color: #fbbf24;
+  transform: scale(1.04);
+}
+
+.wheel-done {
+  border-color: #22c55e;
+  transform: scale(1);
+}
+
+.my-player {
+  width: 100%;
+  background-color: #232323;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.my-player h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.my-player-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.my-player-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.aspect-empty {
+  opacity: 0.4;
+}
+
+.aspect-name {
+  flex: 1;
+  color: #ccc;
+}
+
+.aspect-value {
+  font-weight: 700;
+  color: #93c5fd;
+  min-width: 2ch;
+  text-align: right;
+}
+
+.aspect-from {
+  color: #777;
+  font-size: 0.8rem;
+}
+
+.aspect-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.aspect-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.aspect-button:hover {
+  background-color: #333;
+  border-color: #3b82f6;
 }
 </file>
 
