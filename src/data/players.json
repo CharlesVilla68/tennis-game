@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Roger Federer",
+    "primeYear": 2007,
+    "ratings": {
+      "forehand": 92,
+      "backhand": 88,
+      "serve": 90,
+      "footwork": 98,
+      "mentality": 94,
+      "speed": 91,
+      "netPlay": 97,
+      "stamina": 85
+    }
+  },
+  {
+    "name": "Rafael Nadal",
+    "primeYear": 2010,
+    "ratings": {
+      "forehand": 99,
+      "backhand": 88,
+      "serve": 82,
+      "footwork": 96,
+      "mentality": 98,
+      "speed": 95,
+      "netPlay": 78,
+      "stamina": 99
+    }
+  },
+  {
+    "name": "Novak Djokovic",
+    "primeYear": 2015,
+    "ratings": {
+      "forehand": 93,
+      "backhand": 98,
+      "serve": 88,
+      "footwork": 97,
+      "mentality": 99,
+      "speed": 96,
+      "netPlay": 85,
+      "stamina": 97
+    }
+  },
+  {
+    "name": "Serena Williams",
+    "primeYear": 2013,
+    "ratings": {
+      "forehand": 96,
+      "backhand": 92,
+      "serve": 99,
+      "footwork": 88,
+      "mentality": 97,
+      "speed": 90,
+      "netPlay": 88,
+      "stamina": 91
+    }
+  },
+  {
+    "name": "Pete Sampras",
+    "primeYear": 1995,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 85,
+      "serve": 98,
+      "footwork": 92,
+      "mentality": 96,
+      "speed": 88,
+      "netPlay": 96,
+      "stamina": 82
+    }
+  },
+  {
+    "name": "Steffi Graf",
+    "primeYear": 1988,
+    "ratings": {
+      "forehand": 95,
+      "backhand": 90,
+      "serve": 88,
+      "footwork": 94,
+      "mentality": 95,
+      "speed": 93,
+      "netPlay": 82,
+      "stamina": 92
+    }
+  },
+  {
+    "name": "Bjorn Borg",
+    "primeYear": 1980,
+    "ratings": {
+      "forehand": 90,
+      "backhand": 92,
+      "serve": 78,
+      "footwork": 95,
+      "mentality": 94,
+      "speed": 94,
+      "netPlay": 75,
+      "stamina": 98
+    }
+  },
+  {
+    "name": "Martina Navratilova",
+    "primeYear": 1984,
+    "ratings": {
+      "forehand": 88,
+      "backhand": 90,
+      "serve": 86,
+      "footwork": 96,
+      "mentality": 97,
+      "speed": 92,
+      "netPlay": 99,
+      "stamina": 94
+    }
+  }
+]
