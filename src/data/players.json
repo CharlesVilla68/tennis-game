@@ -2,6 +2,8 @@
   {
     "name": "Roger Federer",
     "primeYear": 2007,
+    "activeFrom": 1999,
+    "activeTo": 2022,
     "ratings": {
       "forehand": 92,
       "backhand": 88,
@@ -16,6 +18,8 @@
   {
     "name": "Rafael Nadal",
     "primeYear": 2010,
+    "activeFrom": 2001,
+    "activeTo": 2024,
     "ratings": {
       "forehand": 99,
       "backhand": 88,
@@ -30,6 +34,8 @@
   {
     "name": "Novak Djokovic",
     "primeYear": 2015,
+    "activeFrom": 2003,
+    "activeTo": 2024,
     "ratings": {
       "forehand": 93,
       "backhand": 98,
@@ -44,6 +50,8 @@
   {
     "name": "Serena Williams",
     "primeYear": 2013,
+    "activeFrom": 1995,
+    "activeTo": 2022,
     "ratings": {
       "forehand": 96,
       "backhand": 92,
@@ -58,6 +66,8 @@
   {
     "name": "Pete Sampras",
     "primeYear": 1995,
+    "activeFrom": 1988,
+    "activeTo": 2002,
     "ratings": {
       "forehand": 90,
       "backhand": 85,
@@ -72,6 +82,8 @@
   {
     "name": "Steffi Graf",
     "primeYear": 1988,
+    "activeFrom": 1982,
+    "activeTo": 1999,
     "ratings": {
       "forehand": 95,
       "backhand": 90,
@@ -86,6 +98,8 @@
   {
     "name": "Bjorn Borg",
     "primeYear": 1980,
+    "activeFrom": 1973,
+    "activeTo": 1983,
     "ratings": {
       "forehand": 90,
       "backhand": 92,
@@ -100,6 +114,8 @@
   {
     "name": "Martina Navratilova",
     "primeYear": 1984,
+    "activeFrom": 1975,
+    "activeTo": 1994,
     "ratings": {
       "forehand": 88,
       "backhand": 90,

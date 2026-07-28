@@ -1,13 +1,20 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 
-export default function Wheel({ options, onFinish }) {
+const SPIN_DURATION_MS = 2000
+
+export default function Wheel({
+  options,
+  onFinish,
+  onSpinningChange,
+  buttonLabel = 'Spin',
+}) {
   const [displayed, setDisplayed] = useState(options[0] ?? '')
   const [spinning, setSpinning] = useState(false)
-  const timeoutRef = useRef(null)
+  const frameRef = useRef(null)
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      if (frameRef.current) cancelAnimationFrame(frameRef.current)
     }
   }, [])
 
@@ -17,33 +24,44 @@ export default function Wheel({ options, onFinish }) {
     }
   }, [options, spinning])
 
+  const setSpinState = useCallback(
+    (value) => {
+      setSpinning(value)
+      onSpinningChange?.(value)
+    },
+    [onSpinningChange],
+  )
+
   const spin = useCallback(() => {
     if (spinning || options.length === 0) return
 
     const finalIndex = Math.floor(Math.random() * options.length)
-    const totalSteps = options.length * 4 + finalIndex
-    let step = 0
+    const totalSteps = options.length * 3 + finalIndex
+    const startTime = performance.now()
 
-    setSpinning(true)
+    setSpinState(true)
 
-    const tick = () => {
+    const tick = (now) => {
+      const elapsed = now - startTime
+      const progress = Math.min(elapsed / SPIN_DURATION_MS, 1)
+      const eased = 1 - Math.pow(1 - progress, 4)
+      const step = Math.floor(eased * totalSteps)
+
       setDisplayed(options[step % options.length])
 
-      if (step >= totalSteps) {
+      if (progress >= 1) {
         const result = options[finalIndex]
-        setSpinning(false)
+        setDisplayed(result)
+        setSpinState(false)
         onFinish(result)
         return
       }
 
-      step += 1
-      const progress = step / totalSteps
-      const delay = 40 + progress * progress * 350
-      timeoutRef.current = setTimeout(tick, delay)
+      frameRef.current = requestAnimationFrame(tick)
     }
 
-    tick()
-  }, [options, onFinish, spinning])
+    frameRef.current = requestAnimationFrame(tick)
+  }, [options, onFinish, spinning, setSpinState])
 
   return (
     <div style={styles.container}>
@@ -54,7 +72,7 @@ export default function Wheel({ options, onFinish }) {
         onClick={spin}
         disabled={spinning || options.length === 0}
       >
-        {spinning ? 'Spinning…' : 'Spin'}
+        {spinning ? 'Spinning…' : buttonLabel}
       </button>
     </div>
   )
