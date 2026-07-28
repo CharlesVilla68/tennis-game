@@ -7,10 +7,6 @@ function easeOutQuint(t) {
   return 1 - Math.pow(1 - t, 5);
 }
 
-function easeInOutQuad(t) {
-  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-}
-
 export default function Wheel({
   options,
   targetValue,
@@ -39,9 +35,8 @@ export default function Wheel({
       MAX_TRAVEL_STEPS
     );
 
-    const stripLength = travel + 3; // a little extra so the overshoot has real items to show
     const items = [];
-    for (let i = 0; i <= stripLength; i++) {
+    for (let i = 0; i <= travel; i++) {
       const idx =
         (safeIndex - travel + i + options.length * 1000) % options.length;
       items.push(options[idx]);
@@ -64,26 +59,12 @@ export default function Wheel({
     setPhase("spinning");
     setTranslateY(0);
 
-    const rockSteps = 1; // scroll exactly one extra item past the winner, then rock back
     const settledPixels = travelSteps * ITEM_HEIGHT;
-    const overshootPixels = settledPixels + rockSteps * ITEM_HEIGHT;
-    const mainPortion = 0.82; // fraction of the spin spent on the main decelerating scroll
     const start = performance.now();
 
     const frame = (now) => {
       const t = Math.min((now - start) / spinMs, 1);
-      let pixels;
-
-      if (t < mainPortion) {
-        pixels = overshootPixels * easeOutQuint(t / mainPortion);
-      } else {
-        setPhase((p) => (p === "spinning" ? "settling" : p));
-        const localT = (t - mainPortion) / (1 - mainPortion);
-        pixels =
-          overshootPixels -
-          (overshootPixels - settledPixels) * easeInOutQuad(localT);
-      }
-
+      const pixels = settledPixels * easeOutQuint(t);
       setTranslateY(-pixels);
 
       if (t >= 1) {
