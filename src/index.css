@@ -271,3 +271,18 @@ h1 {
   background-color: #333;
   border-color: #3b82f6;
 }
+
+.my-player h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progress-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #aaa;
+  background-color: #333;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+}

@@ -47,8 +47,19 @@ function App() {
   const isValidRange =
     startYear <= endYear && startYear >= MIN_YEAR && endYear <= MAX_YEAR;
 
+  const filledAspects = ASPECTS.filter((aspect) => myPlayer[aspect]);
   const remainingAspects = ASPECTS.filter((aspect) => !(aspect in myPlayer));
   const isComplete = remainingAspects.length === 0;
+
+  const currentAverage =
+    filledAspects.length > 0
+      ? Math.round(
+          filledAspects.reduce(
+            (sum, aspect) => sum + myPlayer[aspect].value,
+            0
+          ) / filledAspects.length
+        )
+      : null;
 
   const yearOptions = useMemo(() => {
     if (!lockedRange) return [];
@@ -130,20 +141,20 @@ function App() {
     resetRound();
   };
 
-  const overallRating = isComplete
-    ? Math.round(
-        ASPECTS.reduce((sum, aspect) => sum + myPlayer[aspect].value, 0) /
-          ASPECTS.length
-      )
-    : null;
-
   return (
     <div className="app">
       <h1>Tennis 38-0</h1>
 
-      {Object.keys(myPlayer).length > 0 && (
+      {filledAspects.length > 0 && (
         <section className="my-player">
-          <h2>My Player{isComplete ? ` — Overall ${overallRating}` : ""}</h2>
+          <h2>
+            My Player — Avg {currentAverage}
+            {!isComplete && (
+              <span className="progress-badge">
+                {filledAspects.length}/{ASPECTS.length}
+              </span>
+            )}
+          </h2>
           <ul className="my-player-list">
             {ASPECTS.map((aspect) =>
               myPlayer[aspect] ? (
