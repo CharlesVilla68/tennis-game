@@ -49,11 +49,14 @@ src/
     react.svg
     vite.svg
   components/
+    SeasonResults.jsx
     Wheel.jsx
   data/
     players.json
+    tournaments.js
   utils/
     getPlayersForYear.js
+    simulateSeason.js
   App.jsx
   index.css
   main.jsx
@@ -105,6 +108,444 @@ This section contains the contents of the repository's files.
 
 <file path="src/assets/vite.svg">
 <svg xmlns="http://www.w3.org/2000/svg" width="77" height="47" fill="none" aria-labelledby="vite-logo-title" viewBox="0 0 77 47"><title id="vite-logo-title">Vite</title><style>.parenthesis{fill:#000}@media (prefers-color-scheme:dark){.parenthesis{fill:#fff}}</style><path fill="#9135ff" d="M40.151 45.71c-.663.844-2.02.374-2.02-.699V34.708a2.26 2.26 0 0 0-2.262-2.262H24.493c-.92 0-1.457-1.04-.92-1.788l7.479-10.471c1.07-1.498 0-3.578-1.842-3.578H15.443c-.92 0-1.456-1.04-.92-1.788l9.696-13.576c.213-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.472c-1.07 1.497 0 3.578 1.842 3.578h11.376c.944 0 1.474 1.087.89 1.83L40.153 45.712z"/><mask id="a" width="48" height="47" x="14" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="#000" d="M40.047 45.71c-.663.843-2.02.374-2.02-.699V34.708a2.26 2.26 0 0 0-2.262-2.262H24.389c-.92 0-1.457-1.04-.92-1.788l7.479-10.472c1.07-1.497 0-3.578-1.842-3.578H15.34c-.92 0-1.456-1.04-.92-1.788l9.696-13.575c.213-.297.556-.474.92-.474H53.93c.92 0 1.456 1.04.92 1.788L47.37 13.03c-1.07 1.498 0 3.578 1.842 3.578h11.376c.944 0 1.474 1.088.89 1.831L40.049 45.712z"/></mask><g mask="url(#a)"><g filter="url(#b)"><ellipse cx="5.508" cy="14.704" fill="#eee6ff" rx="5.508" ry="14.704" transform="rotate(269.814 20.96 11.29)scale(-1 1)"/></g><g filter="url(#c)"><ellipse cx="10.399" cy="29.851" fill="#eee6ff" rx="10.399" ry="29.851" transform="rotate(89.814 -16.902 -8.275)scale(1 -1)"/></g><g filter="url(#d)"><ellipse cx="5.508" cy="30.487" fill="#8900ff" rx="5.508" ry="30.487" transform="rotate(89.814 -19.197 -7.127)scale(1 -1)"/></g><g filter="url(#e)"><ellipse cx="5.508" cy="30.599" fill="#8900ff" rx="5.508" ry="30.599" transform="rotate(89.814 -25.928 4.177)scale(1 -1)"/></g><g filter="url(#f)"><ellipse cx="5.508" cy="30.599" fill="#8900ff" rx="5.508" ry="30.599" transform="rotate(89.814 -25.738 5.52)scale(1 -1)"/></g><g filter="url(#g)"><ellipse cx="14.072" cy="22.078" fill="#eee6ff" rx="14.072" ry="22.078" transform="rotate(93.35 31.245 55.578)scale(-1 1)"/></g><g filter="url(#h)"><ellipse cx="3.47" cy="21.501" fill="#8900ff" rx="3.47" ry="21.501" transform="rotate(89.009 35.419 55.202)scale(-1 1)"/></g><g filter="url(#i)"><ellipse cx="3.47" cy="21.501" fill="#8900ff" rx="3.47" ry="21.501" transform="rotate(89.009 35.419 55.202)scale(-1 1)"/></g><g filter="url(#j)"><ellipse cx="14.592" cy="9.743" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(39.51 14.592 9.743)"/></g><g filter="url(#k)"><ellipse cx="61.728" cy="-5.321" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 61.728 -5.32)"/></g><g filter="url(#l)"><ellipse cx="55.618" cy="7.104" fill="#00c2ff" rx="5.971" ry="9.665" transform="rotate(37.892 55.618 7.104)"/></g><g filter="url(#m)"><ellipse cx="12.326" cy="39.103" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 12.326 39.103)"/></g><g filter="url(#n)"><ellipse cx="12.326" cy="39.103" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 12.326 39.103)"/></g><g filter="url(#o)"><ellipse cx="49.857" cy="30.678" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 49.857 30.678)"/></g><g filter="url(#p)"><ellipse cx="52.623" cy="33.171" fill="#00c2ff" rx="5.971" ry="15.297" transform="rotate(37.892 52.623 33.17)"/></g></g><path d="M6.919 0c-9.198 13.166-9.252 33.575 0 46.789h6.215c-9.25-13.214-9.196-33.623 0-46.789zm62.424 0h-6.215c9.198 13.166 9.252 33.575 0 46.789h6.215c9.25-13.214 9.196-33.623 0-46.789" class="parenthesis"/><defs><filter id="b" width="60.045" height="41.654" x="-5.564" y="16.92" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"/></filter><filter id="c" width="90.34" height="51.437" x="-40.407" y="-6.762" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"/></filter><filter id="d" width="79.355" height="29.4" x="-35.435" y="2.801" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="e" width="79.579" height="29.4" x="-30.84" y="20.8" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="f" width="79.579" height="29.4" x="-29.307" y="21.949" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="g" width="74.749" height="58.852" x="29.961" y="-17.13" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"/></filter><filter id="h" width="61.377" height="25.362" x="37.754" y="3.055" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="i" width="61.377" height="25.362" x="37.754" y="3.055" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="j" width="56.045" height="63.649" x="-13.43" y="-22.082" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="k" width="54.814" height="64.646" x="34.321" y="-37.644" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="l" width="33.541" height="35.313" x="38.847" y="-10.552" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="m" width="54.814" height="64.646" x="-15.081" y="6.78" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="n" width="54.814" height="64.646" x="-15.081" y="6.78" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="o" width="54.814" height="64.646" x="22.45" y="-1.645" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="p" width="39.409" height="43.623" x="32.919" y="11.36" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter></defs></svg>
+</file>
+
+<file path="src/components/SeasonResults.jsx">
+const CATEGORY_LABELS = {
+  grandSlam: "Grand Slam",
+  masters1000: "Masters 1000",
+  atp500: "ATP 500",
+  atp250: "ATP 250",
+  finals: "ATP Finals",
+};
+
+function formatMoney(amount) {
+  return `$${amount.toLocaleString("en-US")}`;
+}
+
+export default function SeasonResults({ season, onRestart }) {
+  const {
+    results,
+    finals,
+    totalPoints,
+    totalPrizeMoney,
+    titles,
+    qualifiedForFinals,
+  } = season;
+
+  return (
+    <section className="season-results">
+      <h2>Season Recap</h2>
+
+      <div className="season-summary">
+        <div className="summary-stat">
+          <span className="summary-value">{titles}</span>
+          <span className="summary-label">Titles</span>
+        </div>
+        <div className="summary-stat">
+          <span className="summary-value">
+            {totalPoints.toLocaleString("en-US")}
+          </span>
+          <span className="summary-label">Ranking Points</span>
+        </div>
+        <div className="summary-stat">
+          <span className="summary-value">{formatMoney(totalPrizeMoney)}</span>
+          <span className="summary-label">Prize Money</span>
+        </div>
+      </div>
+
+      <ul className="season-list">
+        {results.map((r) => (
+          <li
+            key={r.tournament}
+            className={r.result === "Champion" ? "season-title" : ""}>
+            <span className="season-category">
+              {CATEGORY_LABELS[r.category]}
+            </span>
+            <span className="season-tournament">{r.tournament}</span>
+            <span className="season-result">{r.result}</span>
+          </li>
+        ))}
+        {finals && (
+          <li className={finals.result === "Champion" ? "season-title" : ""}>
+            <span className="season-category">{CATEGORY_LABELS.finals}</span>
+            <span className="season-tournament">{finals.tournament}</span>
+            <span className="season-result">{finals.result}</span>
+          </li>
+        )}
+      </ul>
+
+      {!qualifiedForFinals && (
+        <p className="locked-range">
+          Didn't reach the ranking points cutoff for the ATP Finals this season.
+        </p>
+      )}
+
+      <button type="button" className="primary-button" onClick={onRestart}>
+        Build Another Player
+      </button>
+    </section>
+  );
+}
+</file>
+
+<file path="src/data/tournaments.js">
+export const CATEGORY_TEMPLATES = {
+  grandSlam: {
+    rounds: [
+      {
+        id: "r64",
+        label: "Round of 64",
+        oppAvg: 72,
+        oppSpread: 8,
+        points: 10,
+        prizeMoney: 80000,
+      },
+      {
+        id: "r32",
+        label: "Round of 32",
+        oppAvg: 76,
+        oppSpread: 7,
+        points: 45,
+        prizeMoney: 125000,
+      },
+      {
+        id: "r16",
+        label: "Round of 16",
+        oppAvg: 80,
+        oppSpread: 6,
+        points: 180,
+        prizeMoney: 225000,
+      },
+      {
+        id: "qf",
+        label: "Quarterfinal",
+        oppAvg: 84,
+        oppSpread: 5,
+        points: 360,
+        prizeMoney: 455000,
+      },
+      {
+        id: "sf",
+        label: "Semifinal",
+        oppAvg: 88,
+        oppSpread: 4,
+        points: 720,
+        prizeMoney: 915000,
+      },
+      {
+        id: "f",
+        label: "Final",
+        oppAvg: 91,
+        oppSpread: 4,
+        points: 1200,
+        prizeMoney: 1550000,
+      },
+    ],
+    championPoints: 2000,
+    championPrize: 3000000,
+  },
+  masters1000: {
+    rounds: [
+      {
+        id: "r64",
+        label: "Round of 64",
+        oppAvg: 70,
+        oppSpread: 8,
+        points: 10,
+        prizeMoney: 20000,
+      },
+      {
+        id: "r32",
+        label: "Round of 32",
+        oppAvg: 74,
+        oppSpread: 7,
+        points: 45,
+        prizeMoney: 36000,
+      },
+      {
+        id: "r16",
+        label: "Round of 16",
+        oppAvg: 78,
+        oppSpread: 6,
+        points: 90,
+        prizeMoney: 69000,
+      },
+      {
+        id: "qf",
+        label: "Quarterfinal",
+        oppAvg: 82,
+        oppSpread: 5,
+        points: 180,
+        prizeMoney: 133000,
+      },
+      {
+        id: "sf",
+        label: "Semifinal",
+        oppAvg: 86,
+        oppSpread: 4,
+        points: 360,
+        prizeMoney: 265000,
+      },
+      {
+        id: "f",
+        label: "Final",
+        oppAvg: 89,
+        oppSpread: 4,
+        points: 600,
+        prizeMoney: 545000,
+      },
+    ],
+    championPoints: 1000,
+    championPrize: 1075000,
+  },
+  atp500: {
+    rounds: [
+      {
+        id: "r32",
+        label: "Round of 32",
+        oppAvg: 70,
+        oppSpread: 7,
+        points: 25,
+        prizeMoney: 20000,
+      },
+      {
+        id: "r16",
+        label: "Round of 16",
+        oppAvg: 75,
+        oppSpread: 6,
+        points: 45,
+        prizeMoney: 36000,
+      },
+      {
+        id: "qf",
+        label: "Quarterfinal",
+        oppAvg: 80,
+        oppSpread: 5,
+        points: 90,
+        prizeMoney: 67000,
+      },
+      {
+        id: "sf",
+        label: "Semifinal",
+        oppAvg: 85,
+        oppSpread: 4,
+        points: 180,
+        prizeMoney: 128000,
+      },
+      {
+        id: "f",
+        label: "Final",
+        oppAvg: 88,
+        oppSpread: 4,
+        points: 300,
+        prizeMoney: 245000,
+      },
+    ],
+    championPoints: 500,
+    championPrize: 455000,
+  },
+  atp250: {
+    rounds: [
+      {
+        id: "r32",
+        label: "Round of 32",
+        oppAvg: 66,
+        oppSpread: 7,
+        points: 13,
+        prizeMoney: 10000,
+      },
+      {
+        id: "r16",
+        label: "Round of 16",
+        oppAvg: 71,
+        oppSpread: 6,
+        points: 25,
+        prizeMoney: 19000,
+      },
+      {
+        id: "qf",
+        label: "Quarterfinal",
+        oppAvg: 76,
+        oppSpread: 5,
+        points: 45,
+        prizeMoney: 34000,
+      },
+      {
+        id: "sf",
+        label: "Semifinal",
+        oppAvg: 81,
+        oppSpread: 4,
+        points: 90,
+        prizeMoney: 63000,
+      },
+      {
+        id: "f",
+        label: "Final",
+        oppAvg: 85,
+        oppSpread: 4,
+        points: 150,
+        prizeMoney: 120000,
+      },
+    ],
+    championPoints: 250,
+    championPrize: 215000,
+  },
+};
+
+export const TOURNAMENTS = [
+  { name: "Australian Open", category: "grandSlam" },
+  { name: "Roland Garros", category: "grandSlam" },
+  { name: "Wimbledon", category: "grandSlam" },
+  { name: "US Open", category: "grandSlam" },
+
+  { name: "Indian Wells Masters", category: "masters1000" },
+  { name: "Miami Open", category: "masters1000" },
+  { name: "Monte-Carlo Masters", category: "masters1000" },
+  { name: "Madrid Open", category: "masters1000" },
+  { name: "Italian Open", category: "masters1000" },
+  { name: "Canadian Open", category: "masters1000" },
+  { name: "Cincinnati Masters", category: "masters1000" },
+  { name: "Shanghai Masters", category: "masters1000" },
+  { name: "Paris Masters", category: "masters1000" },
+
+  { name: "Rotterdam Open", category: "atp500" },
+  { name: "Dubai Championships", category: "atp500" },
+  { name: "Barcelona Open", category: "atp500" },
+  { name: "Queen's Club Championships", category: "atp500" },
+  { name: "Washington Open", category: "atp500" },
+  { name: "Swiss Indoors Basel", category: "atp500" },
+
+  { name: "Adelaide International", category: "atp250" },
+  { name: "Marseille Open", category: "atp250" },
+  { name: "Munich Open", category: "atp250" },
+  { name: "Los Cabos Open", category: "atp250" },
+  { name: "Winston-Salem Open", category: "atp250" },
+  { name: "Stockholm Open", category: "atp250" },
+];
+</file>
+
+<file path="src/utils/simulateSeason.js">
+import { TOURNAMENTS, CATEGORY_TEMPLATES } from "../data/tournaments";
+
+const LOGISTIC_SCALE = 12;
+const FINALS_POINTS_THRESHOLD = 4000; // approximate — real cutoffs vary year to year
+
+function randomNormal(mean, spread) {
+  const u1 = Math.random();
+  const u2 = Math.random();
+  const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+  const value = mean + z * (spread / 2);
+  return Math.min(99, Math.max(40, value));
+}
+
+function winProbability(playerRating, oppRating) {
+  return 1 / (1 + Math.pow(10, -(playerRating - oppRating) / LOGISTIC_SCALE));
+}
+
+function simulateTournament(tournament, playerRating) {
+  const template = CATEGORY_TEMPLATES[tournament.category];
+  const matchLog = [];
+
+  for (const round of template.rounds) {
+    const oppRating = Math.round(randomNormal(round.oppAvg, round.oppSpread));
+    const won = Math.random() < winProbability(playerRating, oppRating);
+    matchLog.push({ round: round.label, oppRating, won });
+
+    if (!won) {
+      return {
+        tournament: tournament.name,
+        category: tournament.category,
+        result: round.label,
+        points: round.points,
+        prizeMoney: round.prizeMoney,
+        matchLog,
+      };
+    }
+  }
+
+  return {
+    tournament: tournament.name,
+    category: tournament.category,
+    result: "Champion",
+    points: template.championPoints,
+    prizeMoney: template.championPrize,
+    matchLog,
+  };
+}
+
+function simulateAtpFinals(playerRating) {
+  const matchLog = [];
+  let groupWins = 0;
+
+  for (let i = 0; i < 3; i++) {
+    const oppRating = Math.round(randomNormal(90, 3));
+    const won = Math.random() < winProbability(playerRating, oppRating);
+    matchLog.push({ round: `Group Match ${i + 1}`, oppRating, won });
+    if (won) groupWins += 1;
+  }
+
+  if (groupWins < 2) {
+    return {
+      tournament: "ATP Finals",
+      category: "finals",
+      result: "Group Stage",
+      points: 200 * groupWins,
+      prizeMoney: 400000 * groupWins,
+      matchLog,
+    };
+  }
+
+  const sfOpp = Math.round(randomNormal(91, 3));
+  const wonSF = Math.random() < winProbability(playerRating, sfOpp);
+  matchLog.push({ round: "Semifinal", oppRating: sfOpp, won: wonSF });
+
+  if (!wonSF) {
+    return {
+      tournament: "ATP Finals",
+      category: "finals",
+      result: "Semifinal",
+      points: 400 + 200 * groupWins,
+      prizeMoney: 1000000 + 400000 * groupWins,
+      matchLog,
+    };
+  }
+
+  const fOpp = Math.round(randomNormal(92, 3));
+  const wonF = Math.random() < winProbability(playerRating, fOpp);
+  matchLog.push({ round: "Final", oppRating: fOpp, won: wonF });
+
+  return {
+    tournament: "ATP Finals",
+    category: "finals",
+    result: wonF ? "Champion" : "Runner-up",
+    points: (wonF ? 1500 : 1000) + 200 * groupWins,
+    prizeMoney: (wonF ? 4500000 : 2000000) + 400000 * groupWins,
+    matchLog,
+  };
+}
+
+export function simulateSeason(playerRating) {
+  const results = TOURNAMENTS.map((t) => simulateTournament(t, playerRating));
+
+  const totalPoints = results.reduce((sum, r) => sum + r.points, 0);
+  const totalPrizeMoney = results.reduce((sum, r) => sum + r.prizeMoney, 0);
+  const titles = results.filter((r) => r.result === "Champion").length;
+
+  const finals =
+    totalPoints >= FINALS_POINTS_THRESHOLD
+      ? simulateAtpFinals(playerRating)
+      : null;
+
+  return {
+    results,
+    finals,
+    totalPoints: totalPoints + (finals ? finals.points : 0),
+    totalPrizeMoney: totalPrizeMoney + (finals ? finals.prizeMoney : 0),
+    titles: titles + (finals && finals.result === "Champion" ? 1 : 0),
+    qualifiedForFinals: Boolean(finals),
+  };
+}
 </file>
 
 <file path="src/main.jsx">
@@ -8146,17 +8587,102 @@ h1 {
   background-color: #3b82f6;
   border-color: #3b82f6;
 }
+
+.season-results {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.season-summary {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.summary-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #232323;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0.75rem 0.5rem;
+}
+
+.summary-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #93c5fd;
+}
+
+.summary-label {
+  font-size: 0.7rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.season-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.season-list li {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  background-color: #202020;
+  border-radius: 6px;
+}
+
+.season-category {
+  color: #777;
+  min-width: 90px;
+}
+
+.season-tournament {
+  flex: 1;
+  color: #ddd;
+}
+
+.season-result {
+  color: #aaa;
+  font-weight: 600;
+}
+
+.season-title {
+  border: 1px solid #fbbf24;
+}
+
+.season-title .season-result {
+  color: #fbbf24;
+}
 </file>
 
 <file path="src/App.jsx">
 import { useMemo, useState } from "react";
 import Wheel from "./components/Wheel";
+import SeasonResults from "./components/SeasonResults";
 import { getPlayersForYear } from "./utils/getPlayersForYear";
+import { simulateSeason } from "./utils/simulateSeason";
 
 const MIN_YEAR = 1968;
 const MAX_YEAR = 2026;
 const YEAR_SPIN_MS = 1200;
-const PLAYER_SPIN_MS = 1700; // finishes ~0.5s after the year reel
+const PLAYER_SPIN_MS = 1700;
 
 const DECADE_OPTIONS = [1968, 1970, 1980, 1990, 2000, 2010, 2020, 2026];
 
@@ -8202,6 +8728,7 @@ function App() {
   const [lockedGender, setLockedGender] = useState("both");
   const [lockedDifficulty, setLockedDifficulty] = useState("normal");
   const [myPlayer, setMyPlayer] = useState({});
+  const [seasonResult, setSeasonResult] = useState(null);
 
   const [spinToken, setSpinToken] = useState(0);
   const [spinning, setSpinning] = useState(false);
@@ -8257,6 +8784,7 @@ function App() {
     setMyPlayer({});
     setSpinning(false);
     setSpinToken(0);
+    setSeasonResult(null);
     resetRound();
   };
 
@@ -8311,9 +8839,13 @@ function App() {
     resetRound();
   };
 
+  const handleSimulateSeason = () => {
+    setSeasonResult(simulateSeason(currentAverage));
+  };
+
   return (
     <div className="app">
-      <h1>Rog on my knob</h1>
+      <h1>Tennis 38-0</h1>
 
       {filledAspects.length > 0 && (
         <section className="my-player">
@@ -8347,15 +8879,25 @@ function App() {
       )}
 
       {isComplete ? (
-        <>
-          <p className="result">Your player is complete!</p>
-          <button
-            type="button"
-            className="primary-button"
-            onClick={handleRestart}>
-            Build Another Player
-          </button>
-        </>
+        seasonResult ? (
+          <SeasonResults season={seasonResult} onRestart={handleRestart} />
+        ) : (
+          <>
+            <p className="result">Your player is complete!</p>
+            <button
+              type="button"
+              className="primary-button"
+              onClick={handleSimulateSeason}>
+              Simulate Season
+            </button>
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={handleRestart}>
+              Build Another Player
+            </button>
+          </>
+        )
       ) : !lockedRange ? (
         <>
           <section className="toggle-picker">
