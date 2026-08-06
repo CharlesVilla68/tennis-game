@@ -4,7 +4,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r64",
         label: "Round of 64",
-        oppAvg: 72,
+        oppAvg: 74,
         oppSpread: 8,
         points: 10,
         prizeMoney: 80000,
@@ -12,7 +12,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r32",
         label: "Round of 32",
-        oppAvg: 76,
+        oppAvg: 78,
         oppSpread: 7,
         points: 45,
         prizeMoney: 125000,
@@ -20,7 +20,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r16",
         label: "Round of 16",
-        oppAvg: 80,
+        oppAvg: 82,
         oppSpread: 6,
         points: 180,
         prizeMoney: 225000,
@@ -28,7 +28,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "qf",
         label: "Quarterfinal",
-        oppAvg: 84,
+        oppAvg: 86,
         oppSpread: 5,
         points: 360,
         prizeMoney: 455000,
@@ -36,7 +36,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "sf",
         label: "Semifinal",
-        oppAvg: 88,
+        oppAvg: 90,
         oppSpread: 4,
         points: 720,
         prizeMoney: 915000,
@@ -44,7 +44,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "f",
         label: "Final",
-        oppAvg: 91,
+        oppAvg: 92,
         oppSpread: 4,
         points: 1200,
         prizeMoney: 1550000,
@@ -58,7 +58,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r64",
         label: "Round of 64",
-        oppAvg: 70,
+        oppAvg: 72,
         oppSpread: 8,
         points: 10,
         prizeMoney: 20000,
@@ -66,7 +66,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r32",
         label: "Round of 32",
-        oppAvg: 74,
+        oppAvg: 76,
         oppSpread: 7,
         points: 45,
         prizeMoney: 36000,
@@ -74,7 +74,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r16",
         label: "Round of 16",
-        oppAvg: 78,
+        oppAvg: 80,
         oppSpread: 6,
         points: 90,
         prizeMoney: 69000,
@@ -82,7 +82,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "qf",
         label: "Quarterfinal",
-        oppAvg: 82,
+        oppAvg: 84,
         oppSpread: 5,
         points: 180,
         prizeMoney: 133000,
@@ -90,7 +90,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "sf",
         label: "Semifinal",
-        oppAvg: 86,
+        oppAvg: 88,
         oppSpread: 4,
         points: 360,
         prizeMoney: 265000,
@@ -98,7 +98,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "f",
         label: "Final",
-        oppAvg: 89,
+        oppAvg: 90,
         oppSpread: 4,
         points: 600,
         prizeMoney: 545000,
@@ -112,7 +112,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r32",
         label: "Round of 32",
-        oppAvg: 70,
+        oppAvg: 72,
         oppSpread: 7,
         points: 25,
         prizeMoney: 20000,
@@ -120,7 +120,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r16",
         label: "Round of 16",
-        oppAvg: 75,
+        oppAvg: 77,
         oppSpread: 6,
         points: 45,
         prizeMoney: 36000,
@@ -128,7 +128,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "qf",
         label: "Quarterfinal",
-        oppAvg: 80,
+        oppAvg: 82,
         oppSpread: 5,
         points: 90,
         prizeMoney: 67000,
@@ -136,7 +136,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "sf",
         label: "Semifinal",
-        oppAvg: 85,
+        oppAvg: 86,
         oppSpread: 4,
         points: 180,
         prizeMoney: 128000,
@@ -144,7 +144,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "f",
         label: "Final",
-        oppAvg: 88,
+        oppAvg: 89,
         oppSpread: 4,
         points: 300,
         prizeMoney: 245000,
@@ -158,7 +158,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r32",
         label: "Round of 32",
-        oppAvg: 66,
+        oppAvg: 68,
         oppSpread: 7,
         points: 13,
         prizeMoney: 10000,
@@ -166,7 +166,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "r16",
         label: "Round of 16",
-        oppAvg: 71,
+        oppAvg: 72,
         oppSpread: 6,
         points: 25,
         prizeMoney: 19000,
@@ -174,7 +174,7 @@ export const CATEGORY_TEMPLATES = {
       {
         id: "qf",
         label: "Quarterfinal",
-        oppAvg: 76,
+        oppAvg: 77,
         oppSpread: 5,
         points: 45,
         prizeMoney: 34000,
@@ -201,33 +201,163 @@ export const CATEGORY_TEMPLATES = {
   },
 };
 
-export const TOURNAMENTS = [
-  { name: "Australian Open", category: "grandSlam" },
-  { name: "Roland Garros", category: "grandSlam" },
-  { name: "Wimbledon", category: "grandSlam" },
-  { name: "US Open", category: "grandSlam" },
-
-  { name: "Indian Wells Masters", category: "masters1000" },
-  { name: "Miami Open", category: "masters1000" },
-  { name: "Monte-Carlo Masters", category: "masters1000" },
-  { name: "Madrid Open", category: "masters1000" },
-  { name: "Italian Open", category: "masters1000" },
-  { name: "Canadian Open", category: "masters1000" },
-  { name: "Cincinnati Masters", category: "masters1000" },
-  { name: "Shanghai Masters", category: "masters1000" },
-  { name: "Paris Masters", category: "masters1000" },
-
-  { name: "Rotterdam Open", category: "atp500" },
-  { name: "Dubai Championships", category: "atp500" },
-  { name: "Barcelona Open", category: "atp500" },
-  { name: "Queen's Club Championships", category: "atp500" },
-  { name: "Washington Open", category: "atp500" },
-  { name: "Swiss Indoors Basel", category: "atp500" },
-
-  { name: "Adelaide International", category: "atp250" },
-  { name: "Marseille Open", category: "atp250" },
-  { name: "Munich Open", category: "atp250" },
-  { name: "Los Cabos Open", category: "atp250" },
-  { name: "Winston-Salem Open", category: "atp250" },
-  { name: "Stockholm Open", category: "atp250" },
+// Chronological season slots, following a real ATP top-100 itinerary
+// (Jan Australian swing -> Sunshine Double -> European clay -> grass ->
+// North American hard -> Asian/European indoor -> Paris). Some slots offer
+// a realistic choice between events real players pick between, which adds
+// variety between playthroughs. `mandatory: false` on a Masters 1000 means
+// it's Monte-Carlo, the one optional Masters — it still counts toward your
+// "best other" bucket, just not automatically like the other 8.
+export const SEASON_TEMPLATE = [
+  {
+    month: "Jan",
+    type: "choice",
+    mandatory: false,
+    options: [
+      { name: "Brisbane International", category: "atp250" },
+      { name: "Adelaide International", category: "atp250" },
+    ],
+  },
+  {
+    month: "Jan",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Australian Open", category: "grandSlam" },
+  },
+  {
+    month: "Feb",
+    type: "choice",
+    mandatory: false,
+    options: [
+      { name: "Rotterdam Open", category: "atp500" },
+      { name: "Rio Open", category: "atp500" },
+      { name: "Dallas Open", category: "atp250" },
+    ],
+  },
+  {
+    month: "Mar",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Indian Wells Masters", category: "masters1000" },
+  },
+  {
+    month: "Mar",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Miami Open", category: "masters1000" },
+  },
+  {
+    month: "Apr",
+    type: "fixed",
+    mandatory: false,
+    tournament: { name: "Monte-Carlo Masters", category: "masters1000" },
+  },
+  {
+    month: "Apr",
+    type: "choice",
+    mandatory: false,
+    options: [
+      { name: "Barcelona Open", category: "atp500" },
+      { name: "Munich Open", category: "atp250" },
+    ],
+  },
+  {
+    month: "Apr",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Madrid Open", category: "masters1000" },
+  },
+  {
+    month: "May",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Italian Open", category: "masters1000" },
+  },
+  {
+    month: "May",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Roland Garros", category: "grandSlam" },
+  },
+  {
+    month: "Jun",
+    type: "choice",
+    mandatory: false,
+    options: [
+      { name: "Stuttgart Open", category: "atp250" },
+      { name: "s-Hertogenbosch Open", category: "atp250" },
+    ],
+  },
+  {
+    month: "Jun",
+    type: "choice",
+    mandatory: false,
+    options: [
+      { name: "Queen's Club Championships", category: "atp500" },
+      { name: "Halle Open", category: "atp500" },
+    ],
+  },
+  {
+    month: "Jul",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Wimbledon", category: "grandSlam" },
+  },
+  {
+    month: "Jul",
+    type: "choice",
+    mandatory: false,
+    options: [
+      { name: "Hamburg Open", category: "atp500" },
+      { name: "Washington Open", category: "atp500" },
+    ],
+  },
+  {
+    month: "Aug",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Canadian Open", category: "masters1000" },
+  },
+  {
+    month: "Aug",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Cincinnati Masters", category: "masters1000" },
+  },
+  {
+    month: "Aug",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "US Open", category: "grandSlam" },
+  },
+  {
+    month: "Sep",
+    type: "choice",
+    mandatory: false,
+    options: [
+      { name: "Beijing Open", category: "atp500" },
+      { name: "Tokyo Open", category: "atp500" },
+    ],
+  },
+  {
+    month: "Oct",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Shanghai Masters", category: "masters1000" },
+  },
+  {
+    month: "Oct",
+    type: "choice",
+    mandatory: false,
+    options: [
+      { name: "Swiss Indoors Basel", category: "atp500" },
+      { name: "Vienna Open", category: "atp500" },
+    ],
+  },
+  {
+    month: "Nov",
+    type: "fixed",
+    mandatory: true,
+    tournament: { name: "Paris Masters", category: "masters1000" },
+  },
 ];

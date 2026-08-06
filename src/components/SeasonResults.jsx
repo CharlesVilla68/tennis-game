@@ -18,11 +18,17 @@ export default function SeasonResults({ season, onRestart }) {
     totalPrizeMoney,
     titles,
     qualifiedForFinals,
+    estimatedRanking,
   } = season;
 
   return (
     <section className="season-results">
       <h2>Season Recap</h2>
+
+      <p className="season-ranking">
+        Finished the season ranked <strong>No. {estimatedRanking}</strong> in
+        the world
+      </p>
 
       <div className="season-summary">
         <div className="summary-stat">
@@ -45,7 +51,9 @@ export default function SeasonResults({ season, onRestart }) {
         {results.map((r) => (
           <li
             key={r.tournament}
-            className={r.result === "Champion" ? "season-title" : ""}>
+            className={`${r.result === "Champion" ? "season-title" : ""} ${
+              !r.countedForRanking ? "season-uncounted" : ""
+            }`}>
             <span className="season-category">
               {CATEGORY_LABELS[r.category]}
             </span>

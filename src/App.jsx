@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import Wheel from "./components/Wheel";
-import SeasonResults from "./components/SeasonResults";
+import SeasonPlayback from './components/SeasonPlayback'
 import { getPlayersForYear } from "./utils/getPlayersForYear";
 import { simulateSeason } from "./utils/simulateSeason";
 
@@ -205,7 +205,7 @@ function App() {
 
       {isComplete ? (
         seasonResult ? (
-          <SeasonResults season={seasonResult} onRestart={handleRestart} />
+          <SeasonPlayback season={seasonResult} onRestart={handleRestart} />
         ) : (
           <>
             <p className="result">Your player is complete!</p>

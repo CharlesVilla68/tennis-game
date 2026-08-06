@@ -393,3 +393,87 @@ h1 {
 .season-title .season-result {
   color: #fbbf24;
 }
+
+.season-ranking {
+  margin: 0;
+  font-size: 1rem;
+  color: #ccc;
+  text-align: center;
+}
+
+.season-ranking strong {
+  color: #93c5fd;
+}
+
+.season-uncounted {
+  opacity: 0.45;
+}
+
+.season-playback {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.playback-tournament-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+.playback-card {
+  width: 100%;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #232323;
+  border: 2px solid #444;
+  border-radius: 10px;
+  padding: 1.25rem;
+  transition: border-color 0.2s;
+}
+
+.playback-approaching {
+  border-color: #3b82f6;
+}
+
+.playback-revealed {
+  border-color: #666;
+}
+
+.playback-round {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ddd;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.playback-opponent {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.playback-outcome {
+  margin: 0.25rem 0 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.playback-win {
+  color: #22c55e;
+}
+
+.playback-loss {
+  color: #f87171;
+}
