@@ -417,39 +417,111 @@ h1 {
   gap: 1rem;
 }
 
+.playback-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.playback-log li {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.55rem;
+  background-color: #202020;
+  border-radius: 6px;
+}
+
+.playback-current {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #232323;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1.1rem;
+}
+
 .playback-tournament-title {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #fff;
   text-align: center;
 }
 
-.playback-card {
-  width: 100%;
-  min-height: 140px;
+.playback-category {
+  margin: 0;
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.playback-bar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: #232323;
-  border: 2px solid #444;
-  border-radius: 10px;
-  padding: 1.25rem;
-  transition: border-color 0.2s;
+  gap: 4px;
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
-.playback-approaching {
-  border-color: #3b82f6;
+.playback-segment {
+  flex: 1;
+  height: 10px;
+  border-radius: 4px;
+  background-color: #3a3a3a;
+  transition: background-color 0.15s;
 }
 
-.playback-revealed {
-  border-color: #666;
+.seg-upcoming {
+  background-color: #3a3a3a;
+}
+
+.seg-won {
+  background-color: #22c55e;
+}
+
+.seg-active {
+  background-color: #3b82f6;
+  animation: seg-pulse 0.9s ease-in-out infinite;
+}
+
+.seg-won-flash {
+  background-color: #4ade80;
+  animation: seg-flash 0.4s ease-in-out;
+}
+
+.seg-loss-flash {
+  background-color: #f87171;
+  animation: seg-flash 0.4s ease-in-out;
+}
+
+.seg-champion {
+  background-color: #fbbf24;
+  animation: seg-flash 0.4s ease-in-out;
+}
+
+@keyframes seg-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes seg-flash {
+  0% { transform: scaleY(1); }
+  40% { transform: scaleY(1.8); }
+  100% { transform: scaleY(1); }
 }
 
 .playback-round {
-  margin: 0;
+  margin: 0.25rem 0 0;
   font-size: 1rem;
   font-weight: 700;
   color: #ddd;
@@ -459,21 +531,6 @@ h1 {
 
 .playback-opponent {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #999;
-}
-
-.playback-outcome {
-  margin: 0.25rem 0 0;
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-}
-
-.playback-win {
-  color: #22c55e;
-}
-
-.playback-loss {
-  color: #f87171;
 }
