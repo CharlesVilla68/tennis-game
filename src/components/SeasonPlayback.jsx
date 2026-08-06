@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { CATEGORY_TEMPLATES } from "../data/tournaments";
 import SeasonResults from "./SeasonResults";
 
-const APPROACH_MS = 500;
-const REVEAL_MS = 700;
+const APPROACH_MS = 250;
+const REVEAL_MS = 350;
 
 const FINALS_ROUND_LABELS = [
   "Group Match 1",
